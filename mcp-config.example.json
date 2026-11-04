@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "pinduoduo": {
+      "command": "node",
+      "args": ["E:/Codex/pinduoduo-mcp/server.cjs"],
+      "env": {
+        "OPENCLI_CDP_ENDPOINT": "http://127.0.0.1:9222",
+        "PDD_ENABLE_WRITES": "0"
+      },
+      "description": "拼多多 MCP：非商业软件，非官方 API；本机 CDP、人工登录、默认只读。"
+    }
+  }
+}

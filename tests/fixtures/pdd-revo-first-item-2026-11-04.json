@@ -1,0 +1,29 @@
+{
+  "goods_id": "594974848707",
+  "observed_at": "2026-11-04T03:41:52.526Z",
+  "source": "narrow_observed_sku_projection_no_account_data",
+  "html": "<span class=\"tLYIg_Ju enable-select\">revo全价无谷鲜肉猫粮鸡肉绒鸽肉高蛋白营养成猫幼猫猫咪猫粮</span><span class=\"uPP2olgd\">首件¥\n25.5</span><div role=\"dialog\" class=\"HidQ9ROd\"><div class=\"ujEqGzEB\">首件¥91.9</div><div class=\"Mbx2m60G\">已选：金装2.0多肉配方【45%粗蛋白】（不吃可退） 【 4包共10斤*囤货装】</div><div class=\"fXpFACQG\"><div class=\"mhHA_CEU\">秒杀价¥94.9</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">成份</div><div role=\"button\" class=\"F7sZG3xe \" aria-label=\"基础款【36%粗蛋白】无谷配方-不吃可退\">基础款【36%粗蛋白】无谷配方-不吃可退</div><div role=\"button\" class=\"F7sZG3xe hr353bdX\" aria-label=\"金装2.0多肉配方【45%粗蛋白】（不吃可退）\">金装2.0多肉配方【45%粗蛋白】（不吃可退）</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">组合</div><div role=\"button\" class=\"F7sZG3xe hr353bdX\" aria-label=\"【 4包共10斤*囤货装】\">【 4包共10斤*囤货装】</div><div role=\"button\" class=\"F7sZG3xe \" aria-label=\"【 力荐装* 2包共5斤】\">【 力荐装* 2包共5斤】</div><div role=\"button\" class=\"F7sZG3xe \" aria-label=\"【尝鲜装*1包共2.5斤】\">【尝鲜装*1包共2.5斤】</div></div></div>",
+  "goods": {
+    "goodsID": 594974848707,
+    "goodsName": "revo全价无谷鲜肉猫粮鸡肉绒鸽肉高蛋白营养成猫幼猫猫咪猫粮"
+  },
+  "state": {
+    "selectedSkuID": 1964642315537,
+    "currentSelect": {
+      "成份": "金装2.0多肉配方【45%粗蛋白】（不吃可退）",
+      "组合": "【 4包共10斤*囤货装】"
+    },
+    "typeHashToSkuID": {
+      "{\"成份\":\"金装2.0多肉配方【45%粗蛋白】（不吃可退）\",\"组合\":\"【 4包共10斤*囤货装】\"}": 1964642315537
+    },
+    "skuInfos": {
+      "1964642315537": {
+        "skuID": 1964642315537,
+        "skuId": 1964642315537,
+        "goodsId": 594974848707,
+        "groupPrice": "94.9",
+        "isOnsale": 1
+      }
+    }
+  }
+}

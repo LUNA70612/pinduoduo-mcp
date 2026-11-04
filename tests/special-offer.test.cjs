@@ -1,0 +1,7 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict'),{parseHTML}=require('linkedom');
+const {inspectPage}=require('../clis/pdd/_dom.cjs'),{withComparison}=require('../clis/pdd/_comparison.cjs');
+const fixture=require('./fixtures/pdd-special-offer-2026-11-04.json');
+function read(price=fixture.price_text){const {document}=parseHTML('<html><body><h1 class="tLYIg_Ju enable-select"></h1><div class="uPP2olgd"></div></body></html>');document.querySelector('h1').textContent=fixture.title;document.querySelector('.uPP2olgd').textContent=price;return withComparison(inspectPage(document,new URL('https://mobile.yangkeduo.com/goods.html?goods_id='+fixture.goods_id),'detail',{goods_id:fixture.goods_id}),{budget_max:200});}
+test('observed special-offer detail keeps conditional display price without claiming a selected SKU',()=>{const r=read();assert.equal(r.status,'ok');assert.equal(r.price,'¥9.66');assert.equal(r.offer_conditions,'特卖价');assert.equal(r.price_basis,'detail_conditional');assert.equal(r.variant_price_verified,false);assert.equal(r.price_assessment.reference_price,null);assert.ok(r.price_assessment.conditions.includes('特卖价'));assert.ok(r.price_assessment.unknowns.includes('offer_eligibility'));});
+test('unobserved special-offer labels and ranges remain unsupported rather than guessing an amount',()=>{for(const text of ['特卖预估价¥9.66','特卖价¥9.66起','特卖价¥9.66-19.66']){const r=read(text);assert.equal(r.status,'unsupported');assert.equal(r.price,null);assert.equal(r.diagnostic,'price_format_unsupported');}});

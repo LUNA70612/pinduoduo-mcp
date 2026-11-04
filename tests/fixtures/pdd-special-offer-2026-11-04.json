@@ -1,0 +1,8 @@
+{
+  "source_evidence": "docs/dev/final-rounds/compatibility-clothing-r1/1-page.json",
+  "observed_at": "2026-11-04T04:47:04.130Z",
+  "projection": "仅保留可见商品ID、标题和价格节点；测试DOM按已观察类名重建，不含整页、账号或追踪链接。",
+  "goods_id": "1019465517882",
+  "title": "【100%纯棉】短袖男款夏季美式短袖T恤纯棉男女同款潮流圆领半袖t",
+  "price_text": "特卖价¥ 9.66"
+}

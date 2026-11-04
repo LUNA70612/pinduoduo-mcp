@@ -1,0 +1,45 @@
+{
+  "name": "pinduoduo-mcp",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Pinduoduo (拼多多) MCP over the OpenCLI browser bridge — mobile web (mobile.yangkeduo.com), read-only by default, manual login. Same architecture as the chengkit-taobao MCP.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LUNA70612/pinduoduo-mcp.git"
+  },
+  "homepage": "https://github.com/LUNA70612/pinduoduo-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/LUNA70612/pinduoduo-mcp/issues"
+  },
+  "keywords": ["pinduoduo", "mcp", "opencli", "shopping", "stdio"],
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.cjs",
+    "doctor": "node scripts/doctor.cjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.cjs",
+    "test:sdk": "node scripts/sdk-check.cjs",
+    "check": "node scripts/check.cjs",
+    "install:adapters": "node scripts/install-adapters.cjs",
+    "setup": "node scripts/setup.cjs",
+    "bind-browser": "node scripts/bind-browser.cjs",
+    "release:source": "node scripts/release.cjs",
+    "release:check": "node scripts/release-check.cjs",
+    "live:acceptance": "node scripts/live-acceptance.cjs",
+    "live:categories": "node scripts/category-acceptance.cjs",
+    "browser": "node scripts/start-browser.cjs",
+    "cli": "node scripts/pdd-cli.cjs",
+    "smoke": "node scripts/smoke.cjs",
+    "live": "node scripts/live-check.cjs",
+    "unlock": "node scripts/unlock.cjs"
+  },
+  "dependencies": {
+    "@jackwener/opencli": "2.0.2"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "devDependencies": {
+    "linkedom": "0.18.12"
+  }
+}

@@ -1,0 +1,26 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const { createHash } = require('node:crypto');
+const { ROOT, browserConfig } = require('../tools/config.cjs');
+const { childEnv, connected } = require('../tools/client-core.cjs');
+(async () => {
+  const checks = [];
+  const check = (name, ok, detail) => checks.push({ name, ok, detail });
+  check('node', Number(process.versions.node.split('.')[0]) >= 22, process.versions.node);
+  const pkg = require('../node_modules/@jackwener/opencli/package.json');
+  check('opencli', pkg.version === '2.0.2', pkg.version);
+  const source = path.join(ROOT, 'clis', 'pdd'), installed = path.join(ROOT, 'runtime', 'home', '.opencli', 'clis', 'pdd');
+  const digest = file => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+  const entries = fs.readdirSync(source).filter(name => /\.(js|cjs)$/.test(name));
+  check('adapters', entries.every(name => fs.existsSync(path.join(installed, name)) && digest(path.join(source, name)) === digest(path.join(installed, name))), `${entries.filter(name => name.endsWith('.js')).length} 入口`);
+  const runtime=require('../tools/opencli-runtime.cjs');
+  const help=await runtime.probeProcess(process.execPath,[runtime.entry(),'pdd','--help'],{cwd:ROOT,env:childEnv(),timeout:30000,expected:['search','detail','auth','resume','browse_home','read_cart','read_sku','contact_seller','add_cart']});
+  check('adapter_discovery',help.discovered,help);
+  const tools = require('../tools/pdd.cjs').tools;
+  check('mcp_tools', tools.length === 10 && tools.every(tool => tool.inputSchema && tool.outputSchema && tool.annotations), `${tools.length} 工具`);
+  check('write_default', process.env.PDD_ENABLE_WRITES !== '1' && process.env.PDD_WRITE_TEST_MODE !== '1', '只读交付需关闭写权限和写验收模式');
+  const config = browserConfig();
+  console.log(JSON.stringify({ status: checks.every(c => c.ok) ? 'ok' : 'failed', checks, browser_connected: await connected(), endpoint: config.endpoint, profile: config.profile, note: '未启动浏览器时 browser_connected=false 不影响离线安装检查。非商业软件，非官方 API。' }, null, 2));
+  if (checks.some(c => !c.ok)) process.exitCode = 1;
+})().catch(error => { console.error(error.message); process.exitCode = 1; });

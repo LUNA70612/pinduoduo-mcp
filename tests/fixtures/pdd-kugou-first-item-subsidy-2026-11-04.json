@@ -1,0 +1,29 @@
+{
+  "goods_id": "1014552342389",
+  "observed_at": "2026-11-04T08:33:40.123Z",
+  "source": "narrow_visible_sku_projection_and_selected_product_bound_row_no_account_data",
+  "html": "<span class=\"tLYIg_Ju enable-select\">【酷狗】M61四麦主动降噪蓝牙耳机无线入耳通话高清音乐长续航2026新</span><span class=\"uPP2olgd\">首件¥ 68.99</span><div role=\"dialog\" class=\"HidQ9ROd\"><div class=\"ujEqGzEB\">首件¥68.99</div><div class=\"Mbx2m60G\">已选：【墨玉蓝】 4麦克主动降噪</div><div class=\"fXpFACQG\"><div class=\"mhHA_CEU\">补贴价¥98.99</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">颜色</div><div role=\"button\" class=\"F7sZG3xe hr353bdX rGqCSAQI fL5gyy_W\" aria-label=\"【墨玉蓝】\">【墨玉蓝】 已抢711件</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"【焦糖橘】\">【焦糖橘】</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">款式</div><div role=\"button\" class=\"F7sZG3xe hr353bdX rGqCSAQI fL5gyy_W\" aria-label=\"4麦克主动降噪\">4麦克主动降噪</div></div></div>",
+  "goods": {
+    "goodsID": 1014552342389,
+    "goodsName": "【酷狗】M61四麦主动降噪蓝牙耳机无线入耳通话高清音乐长续航2026新"
+  },
+  "state": {
+    "selectedSkuID": 1977530685119,
+    "currentSelect": {
+      "颜色": "【墨玉蓝】",
+      "款式": "4麦克主动降噪"
+    },
+    "typeHashToSkuID": {
+      "{\"颜色\":\"【墨玉蓝】\",\"款式\":\"4麦克主动降噪\"}": 1977530685119
+    },
+    "skuInfos": {
+      "1977530685119": {
+        "skuID": 1977530685119,
+        "skuId": 1977530685119,
+        "goodsId": 1014552342389,
+        "groupPrice": "98.99",
+        "isOnsale": 1
+      }
+    }
+  }
+}

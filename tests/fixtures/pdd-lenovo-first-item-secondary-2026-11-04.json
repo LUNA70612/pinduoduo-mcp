@@ -1,0 +1,30 @@
+{
+  "goods_id": "823994767964",
+  "observed_at": "2026-11-04T05:25:18.555Z",
+  "source": "narrow_visible_sku_projection_and_selected_product_bound_row_no_account_data",
+  "html": "<span class=\"tLYIg_Ju enable-select\">【联想】新款蓝牙耳机入耳式高端游戏运动高音质超长续航男女生LE202</span><span class=\"uPP2olgd\">首件¥ 29.9</span><div role=\"dialog\" class=\"HidQ9ROd\"><div class=\"ujEqGzEB\">首件¥39.9</div><div class=\"Mbx2m60G\">已选：极夜灰【游戏低延迟-高清通话】 旗舰【3D全景环绕立体音效-进阶蓝牙6.0】</div><div class=\"fXpFACQG\"><div class=\"mhHA_CEU\">大促价¥44.9</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">颜色</div><div role=\"button\" class=\"F7sZG3xe hr353bdX rGqCSAQI fL5gyy_W\" aria-label=\"极夜灰【游戏低延迟-高清通话】\">极夜灰【游戏低延迟-高清通话】 快要抢光</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"云韵米【游戏低延迟-高清通话】\">云韵米【游戏低延迟-高清通话】 快要抢光</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"晨曦白【游戏低延迟-高清通话】\">晨曦白【游戏低延迟-高清通话】</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"玫瑰金【游戏低延迟-高清通话】\">玫瑰金【游戏低延迟-高清通话】 快要抢光</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">版本</div><div role=\"button\" class=\"F7sZG3xe hr353bdX rGqCSAQI fL5gyy_W\" aria-label=\"旗舰【3D全景环绕立体音效-进阶蓝牙6.0】\">旗舰【3D全景环绕立体音效-进阶蓝牙6.0】</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"入门【标准音】\">入门【标准音】</div></div></div>",
+  "goods": {
+    "goodsID": 823994767964,
+    "goodsName": "【联想】新款蓝牙耳机入耳式高端游戏运动高音质超长续航男女生LE202"
+  },
+  "state": {
+    "selectedSkuID": 1961412437644,
+    "currentSelect": {
+      "颜色": "极夜灰【游戏低延迟-高清通话】",
+      "版本": "旗舰【3D全景环绕立体音效-进阶蓝牙6.0】"
+    },
+    "typeHashToSkuID": {
+      "{\"颜色\":\"极夜灰【游戏低延迟-高清通话】\",\"版本\":\"旗舰【3D全景环绕立体音效-进阶蓝牙6.0】\"}": 1961412437644
+    },
+    "skuInfos": {
+      "1961412437644": {
+        "skuID": 1961412437644,
+        "skuId": 1961412437644,
+        "goodsId": 823994767964,
+        "groupPrice": "44.9",
+        "skuPrice": 3990,
+        "isOnsale": 1
+      }
+    }
+  }
+}

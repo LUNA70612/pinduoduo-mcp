@@ -1,0 +1,6 @@
+{
+  "source": "current-entry-probe.json: narrowed structural fixture, no account data",
+  "goods_id": "1025107930574",
+  "html": "<div class=\"xJDS9NLo\" style=\"display:none\">已选：10斤大桶</div>",
+  "expected": "missing"
+}

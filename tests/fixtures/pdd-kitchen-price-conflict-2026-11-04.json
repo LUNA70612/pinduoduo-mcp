@@ -1,0 +1,35 @@
+{
+  "source": "Minimal structural reconstruction from multi-round-2026-11-04 kitchen-bound-proof and kitchen-failure-visible; no raw HTML, requests or account state",
+  "goods_id": "1004195100292",
+  "goods": {
+    "goodsID": 1004195100292,
+    "goodsName": "【杯盖可喝水】316不锈钢玉兰花语大容量保温杯户外便携泡茶水杯"
+  },
+  "state": {
+    "selectedSkuID": 1964159770820,
+    "currentSelect": {
+      "款式": "810ml一杯双盖保温杯"
+    },
+    "typeHashToSkuID": {
+      "{\"款式\":\"810ml一杯双盖保温杯\"}": 1964159770820,
+      "{\"款式\":\"610ml一杯双盖保温杯\"}": 1964159770821
+    },
+    "skuInfos": {
+      "1964159770820": {
+        "skuId": 1964159770820,
+        "skuID": 1964159770820,
+        "goodsId": 1004195100292,
+        "groupPrice": "11.8",
+        "isOnsale": 1
+      },
+      "1964159770821": {
+        "skuId": 1964159770821,
+        "skuID": 1964159770821,
+        "goodsId": 1004195100292,
+        "groupPrice": "11.2",
+        "isOnsale": 1
+      }
+    }
+  },
+  "html": "<span class=\"tLYIg_Ju enable-select\">【杯盖可喝水】316不锈钢玉兰花语大容量保温杯户外便携泡茶水杯</span><span class=\"uPP2olgd\">大促价¥11.2</span><div style=\"display:none\"><div class=\"xJDS9NLo\">已选：810ml一杯双盖保温杯</div><div role=\"dialog\" class=\"HidQ9ROd\"><div class=\"Mbx2m60G\">已选：810ml一杯双盖保温杯</div><div class=\"bIhLWVqm\"><span class=\"sku-specs-key\">款式</span><div role=\"button\" class=\"F7sZG3xe hr353bdX\" aria-label=\"810ml一杯双盖保温杯\">810ml一杯双盖保温杯</div><div role=\"button\" class=\"F7sZG3xe\" aria-label=\"610ml一杯双盖保温杯\">610ml一杯双盖保温杯</div></div></div></div>"
+}
