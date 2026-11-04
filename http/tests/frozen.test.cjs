@@ -17,7 +17,9 @@ function copy(t) {
   return directory;
 }
 test('fixed baseline matches Git, while CRLF checkout differences are harmless', t => {
-  assert.equal(checkFrozen({ root, verifyGit: true }).status, 'ok');
+  const hasGit = fs.existsSync(path.join(root, '.git'));
+  assert.equal(checkFrozen({ root, verifyGit: hasGit }).status, 'ok');
+  if (!hasGit) t.diagnostic('源码ZIP按已固定清单验证；Git提交交叉核对由仓库CI执行。');
   const directory = copy(t), file = path.join(directory, 'server.cjs');
   fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace(/\r?\n/g, '\r\n'));
   assert.equal(checkFrozen({ root: directory }).status, 'ok');

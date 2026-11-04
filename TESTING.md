@@ -45,6 +45,8 @@ HTTP可选依赖通过`npm run setup:http`单独安装，`npm run test:http`使�
 
 原stdio与HTTP定向真机分批、依次执行，分别保持自己的搜索来源，核对详情、主图、完整规格及参考价。HTTP内部调用上限300秒；客户端超时另行配置。具体客户端接入、SDK协议和干净目录安装分别记账，不互相替代。
 
+本轮HTTP验证结果、继承范围及限制见[本机HTTP验证记录](http/VALIDATION.md)。源码ZIP不含Git目录时按固定清单检查；仓库CI另外与固定历史提交交叉核对。
+
 SDK记录可使用node scripts/sdk-check.cjs --output work/SDK-VALIDATION.json保存于已忽略的本地目录；已有记录时更换文件名，避免覆盖。客户端需重新加载MCP服务后才会重新获取initialize指引和工具schema；仅新建对话不保证底层服务已经重连。
 
 ## 真实页面执行
