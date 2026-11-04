@@ -1,7 +1,5 @@
 'use strict';
-// Minimal browser session: ensures a bound, connected Chrome is available
-// before a task runs. The real bridge connection is checked via the
-// 127.0.0.1:19825 status endpoint (see tools/pdd.js -> connected()).
+// Browser session helper. Callers supply the connection check and launcher.
 
 function createRuntime({ connected, launchChrome }) {
   return {

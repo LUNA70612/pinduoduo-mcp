@@ -1,6 +1,6 @@
 # 贡献与维护规范
 
-本项目源码采用PolyForm Noncommercial1.0.0。贡献、修改及分发需保留LICENSE、NOTICE和第三方署名；商业使用不在当前许可范围内。
+本项目面向非商业学习、技术研究与交流，源码采用PolyForm Noncommercial1.0.0。贡献、修改及分发需保留LICENSE、NOTICE和第三方声明，不授予商业使用许可。
 
 ## 问题反馈
 

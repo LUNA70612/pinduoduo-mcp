@@ -1,6 +1,6 @@
 # 使用指南
 
-日常使用只需要支持本地stdio MCP的AI客户端和已登录的项目浏览器。安装见 [AI-INSTALL.md](AI-INSTALL.md)，当前能力见 [CAPABILITIES.md](CAPABILITIES.md)。
+本项目用于非商业学习、技术研究与交流。使用时需要支持本地stdio MCP的AI客户端和已登录的项目浏览器。安装见 [AI-INSTALL.md](AI-INSTALL.md)，当前能力见 [CAPABILITIES.md](CAPABILITIES.md)。
 
 ## 在新对话中试用
 
@@ -78,4 +78,4 @@ query优先用“商品类别或明确型号＋必要区分词”的短核心词
 
 默认只读，不加购、不发送客服消息、不点击确定、拼单、下单、结算或支付。普通拼单的价格可以作为附条件参考，但不会实际参与。
 
-本版面向Windows本机使用，Codex已有实际调用和重启恢复证据。豆包、WorkBuddy尚未实测；页面模板和资料完整性仍可能限制结果。
+本版面向Windows本机使用，已验证Codex接入。其他客户端及页面模板的实际兼容性需确认；页面资料缺失时保留未知项。

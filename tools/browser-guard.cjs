@@ -1,7 +1,6 @@
 'use strict';
-// Browser guard: enforces a minimum cooldown between Taobao/PDD-style tasks
-// (mirrors the safety model of chengkit-taobao) and provides a verification
-// cooldown when a captcha/login wall is hit. Kept minimal but functional.
+// Enforces the minimum interval between Pinduoduo browser tasks and extends
+// the cooldown when the page requires manual verification.
 
 const VERIFICATION_COOLDOWN_MS = 90 * 1000;
 const TASK_COOLDOWN_MS = 90 * 1000;

@@ -9,12 +9,5 @@ Required Notice: Copyright (c) 2026 pinduoduo-mcp 本仓库贡献者
    说明：作为浏览器自动化引擎；本项目维护自己的拼多多适配器，
         安装时复制到项目隔离的 user-clis 目录，未修改依赖包源码。
 
-开发参考：chengkit-taobao
-   https://github.com/banxia79009/chengkit-taobao
-   作者：banxia79009
-   许可证：PolyForm Noncommercial 1.0.0
-   说明：开发期间曾对照其 MCP 协议组织与安装交付方式。
-        该项目不是本项目的运行依赖；拼多多页面适配与本机 CDP 链路由本项目维护。
-
-本仓库自行编写且有权授权的源码以 PolyForm Noncommercial 1.0.0 许可证发布，仅限非商业用途。第三方依赖保留各自许可证。
+本仓库自行编写且有权授权的源码以 PolyForm Noncommercial 1.0.0 许可证发布，面向非商业学习、技术研究与交流，不授予商业使用许可。第三方依赖保留各自许可证。
 二次分发须保留本 NOTICE 与第三方声明，详见 THIRD-PARTY-NOTICES.md。

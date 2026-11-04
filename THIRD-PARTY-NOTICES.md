@@ -1,4 +1,4 @@
-# 第三方来源与许可
+# 第三方依赖与许可
 
 ## @jackwener/opencli 2.0.2
 
@@ -6,14 +6,6 @@
 - 用途：本机 OpenCLI 浏览器桥和 CLI 运行时。
 - 本项目未修改其源码；仅把本项目的 `pdd` 适配器复制到项目隔离的 OpenCLI user-clis 目录。
 - 许可证：Apache-2.0，随包正文另保留在 `third-party/OpenCLI-LICENSE-2.0.txt`；随依赖的版权声明继续保留。
-
-## 开发参考：chengkit-taobao
-
-- 来源：[GitHub repository](https://github.com/banxia79009/chengkit-taobao)
-- 对照版本：`7ede18a2c74437b834dd86c0d0393b8ab8cae782`，作者：banxia79009。
-- 用途：开发期间对照 MCP 协议组织和安装交付方式，属于开发参考记录。
-- 该项目不作为运行依赖。本项目维护自己的拼多多 H5 页面适配器和本机 CDP 链路，不包含淘宝页面适配器。
-- 参考项目使用 PolyForm Noncommercial License 1.0.0；其许可证和署名要求不因本项目而改变。
 
 ## 其他依赖
 

@@ -2,7 +2,7 @@
   "name": "pinduoduo-mcp",
   "version": "0.2.0",
   "private": true,
-  "description": "Read-only shopping MCP for Pinduoduo (拼多多): product search, details, specifications and reference prices through a local Chrome/Edge CDP connection powered by OpenCLI.",
+  "description": "拼多多只读购物 MCP：搜索商品、读取详情、核验规格和参考价，供非商业学习与技术研究使用。",
   "repository": {
     "type": "git",
     "url": "https://github.com/LUNA70612/pinduoduo-mcp.git"

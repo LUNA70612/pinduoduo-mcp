@@ -1,6 +1,6 @@
 # 安装与客户端接入
 
-目标环境：Windows、本机Chrome/Edge、Node.js 22及以上。默认只读，非商业软件，非官方API。
+目标环境：Windows、本机Chrome/Edge、Node.js 22及以上。默认只读，面向非商业学习与技术研究，非官方API。
 
 本文件供安装者和协助安装的AI使用。购物使用见 [USAGE.md](USAGE.md)，能力范围见 [CAPABILITIES.md](CAPABILITIES.md)。
 
@@ -35,7 +35,7 @@ npm run browser
 5. 在该窗口人工扫码登录。不要在聊天里提交密码、验证码或Cookie。
 6. 合并生成配置，并让客户端加载MCP；确认可发现10个工具和3个prompts。客户端未提供prompts界面时，工具及initialize.instructions仍可使用。
 
-未启动浏览器不等于离线安装失败。当前链路直接使用本机CDP，不需要复制淘宝项目的扩展或云端Tunnel配置。
+浏览器需在执行页面工具前启动。项目通过本机CDP连接，不需要浏览器扩展或云端转发服务。
 
 ## 复用已有登录会话
 
@@ -60,7 +60,7 @@ profile必须替换为已有浏览器实际使用的目录，不能为绑定而�
 
 生成配置使用Node与server.cjs的绝对路径，PDD_ENABLE_WRITES=0。Codex片段启用服务并设置startup_timeout_sec=30、tool_timeout_sec=240。其他客户端需支持本地stdio，并给每次工具调用至少240秒；按步骤串行调用，排队仍可能超时。
 
-Codex CLI、桌面实际调用及重启恢复已有证据；豆包、WorkBuddy未实测，不将标准协议兼容当成这些产品已经验收。服务端不需要模型API Key，客户端本身需提供模型能力。
+Codex已有实际调用和重启恢复验证。其他客户端需支持本地stdio MCP及可配置的调用超时，实际兼容性需自行确认。服务端不需要模型API Key，客户端本身需提供模型能力。
 
 ## 加载与恢复检查
 
