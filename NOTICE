@@ -2,21 +2,19 @@ pinduoduo-mcp
 Copyright (c) 2026 本仓库贡献者
 Required Notice: Copyright (c) 2026 pinduoduo-mcp 本仓库贡献者
 
-本作品基于以下项目改编/复用，依其许可证要求保留署名：
-
-1. 架构参考：chengkit-taobao
-   https://github.com/banxia79009/chengkit-taobao
-   原作者：banxia79009
-   许可证：PolyForm Noncommercial 1.0.0
-   说明：本仓库复刻其「MCP stdio 外壳 + OpenCLI 浏览器桥 + 站点适配器」架构，
-        并将浏览器连接方式从 Chrome 扩展桥改为 OpenCLI 的 CDP 直连模式，
-        站点适配器由 taobao 重写为 pdd（拼多多移动端 H5）。
-
-2. 运行引擎：@jackwener/opencli
+运行依赖：@jackwener/opencli
    https://www.npmjs.com/package/@jackwener/opencli
    版本：2.0.2
-   说明：本仓库依赖该 npm 包作为浏览器自动化引擎；其内置 taobao/jd/douyin
-        等适配器，本仓库仅新增 pdd 适配器，未修改该包源码（仅复制到 user clis 目录）。
+   许可证：Apache-2.0
+   说明：作为浏览器自动化引擎；本项目维护自己的拼多多适配器，
+        安装时复制到项目隔离的 user-clis 目录，未修改依赖包源码。
+
+开发参考：chengkit-taobao
+   https://github.com/banxia79009/chengkit-taobao
+   作者：banxia79009
+   许可证：PolyForm Noncommercial 1.0.0
+   说明：开发期间曾对照其 MCP 协议组织与安装交付方式。
+        该项目不是本项目的运行依赖；拼多多页面适配与本机 CDP 链路由本项目维护。
 
 本仓库自行编写且有权授权的源码以 PolyForm Noncommercial 1.0.0 许可证发布，仅限非商业用途。第三方依赖保留各自许可证。
-二次分发须保留本 NOTICE 与上述署名。
+二次分发须保留本 NOTICE 与第三方声明，详见 THIRD-PARTY-NOTICES.md。

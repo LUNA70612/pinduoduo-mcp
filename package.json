@@ -2,7 +2,7 @@
   "name": "pinduoduo-mcp",
   "version": "0.2.0",
   "private": true,
-  "description": "Pinduoduo (拼多多) MCP over the OpenCLI browser bridge — mobile web (mobile.yangkeduo.com), read-only by default, manual login. Same architecture as the chengkit-taobao MCP.",
+  "description": "Read-only shopping MCP for Pinduoduo (拼多多): product search, details, specifications and reference prices through a local Chrome/Edge CDP connection powered by OpenCLI.",
   "repository": {
     "type": "git",
     "url": "https://github.com/LUNA70612/pinduoduo-mcp.git"

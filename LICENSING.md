@@ -6,8 +6,6 @@
 
 以上是中文摘要，不替代 LICENSE 正文；标准正文关于非营利组织、个人使用、合理使用等适用条件保持有效。第三方依赖保留各自许可证，本项目不能替它们增加商业使用限制。
 
-二次分发必须保留 `LICENSE`、`NOTICE` 和 `THIRD-PARTY-NOTICES.md`。本项目不是拼多多、淘宝、OpenCLI 或 OpenAI 的官方产品；项目名称、网站名称和商标不表示任何官方授权。
+二次分发必须保留 `LICENSE`、`NOTICE` 和 `THIRD-PARTY-NOTICES.md`。本项目不是拼多多官方产品；项目名称、网站名称和商标不表示任何官方授权。
 
 MCP 不代填账号密码或验证码，不导出 Cookie，不提供下单、结算或付款能力。浏览器会在用户自己的隔离配置中保存登录状态，读取购物车或会话可能涉及私人数据，请勿上传运行目录和原始聊天记录。使用者仍需遵守目标平台的服务条款和适用法律。
-
-本次将此前标为 PolyForm 的简写 LICENSE 更换为 SPDX 收录的完整 PolyForm Noncommercial 1.0.0 正文，来源： https://github.com/spdx/license-list-data/blob/main/text/PolyForm-Noncommercial-1.0.0.txt 。原简写文件保存在本地 work/LICENSE-before-standardization.txt，不纳入分发包。

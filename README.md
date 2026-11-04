@@ -66,13 +66,9 @@ npm run browser
 - 登录、验证码由本人处理；遇验证、繁忙或连接异常停止，不绕过平台限制。
 - 默认写权限关闭；本轮不加购、不发送客服消息、不下单、不结算、不支付。
 
-## 验证范围
+## 兼容性
 
-截至2026-11-04，维护者已完成十品类读取样本、11个不同商品的历史非默认组合、猫粮和耳机两类有条件比较及用户验收。最近源码审查的242项测试、91文件语法、协议冒烟、官方SDK双连接及E盘独立安装通过；Codex实际重启恢复已有记录。历史页面证据按变更影响分析继承，不宣称全部在最近一次审查中重跑。
-
-这些结果证明已测试样本兼容，不保证所有页面模板、其他电脑或长期稳定性。个别页面可能没有安全规格入口、选项禁用，图片也可能不可用；豆包、WorkBuddy尚未实测。验证层级和已知限制见 [TESTING.md](TESTING.md) 与 [CAPABILITIES.md](CAPABILITIES.md)。
-
-公开仓库保留必要回归测试和脱敏fixture，排除个人运行证据、缓存、profile、Cookie和客户端配置，并使用独立的干净Git历史。GitHub源码ZIP对应仓库提交；维护者单独生成的预览包另含SOURCE-INFO.json和MANIFEST.sha256，便于逐文件核对。
+已在 Windows + Chrome 环境验证搜索、详情、规格、参考价及 Codex 接入流程。兼容范围见 [CAPABILITIES.md](CAPABILITIES.md)，测试方法见 [TESTING.md](TESTING.md)。
 
 ## 开发与反馈
 
@@ -89,8 +85,6 @@ npm run smoke
 
 反馈请提供版本、输入摘要、状态及脱敏证据，不提交Cookie、浏览器profile、个人配置、账号资料或完整聊天记录。
 
-## 来源与许可
+## 许可
 
-参考 [chengkit-taobao](https://github.com/banxia79009/chengkit-taobao) 的MCP组织与交付方式，拼多多浏览器链路和页面适配独立维护。来源、参考版本及第三方许可见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
-
-本项目不代表拼多多、OpenCLI、淘宝或OpenAI官方授权。商业使用不在许可范围内；分发需保留 LICENSE、NOTICE、LICENSING.md 和第三方署名。package.json 保持 private:true，不提供默认npm发布流程。
+本项目采用 [PolyForm Noncommercial 1.0.0](LICENSE)，仅限非商业使用。分发时请保留许可和第三方声明，详见 [中文许可说明](LICENSING.md) 与 [第三方声明](THIRD-PARTY-NOTICES.md)。
