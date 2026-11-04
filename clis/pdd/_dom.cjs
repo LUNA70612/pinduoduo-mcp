@@ -270,7 +270,9 @@ function inspectPage(document, location, kind, args = {}) {
             const shownCents=visiblePrice?Math.round(Number(visiblePrice.replace('¥',''))*100):null;
             const groupCents=Math.round(Number(sku.groupPrice)*100);
             const couponMatch=dialogOpen&&selectedBound&&panelCondition==='券后'&&Number.isSafeInteger(sku.skuPrice)&&sku.skuPrice>=0&&sku.skuPrice===shownCents&&!!groupPanelPrice&&Math.round(Number(groupPanelPrice.replace('¥',''))*100)===groupCents;
-            const preCouponMatch=dialogOpen&&selectedBound&&/^限[1-9]\d*件$/.test(panelCondition||'')&&!!preCouponPrice&&Math.round(Number(preCouponPrice.replace('¥',''))*100)===groupCents&&shownCents!==null&&shownCents<groupCents;
+            // A separately visible before-coupon price may verify the base SKU
+            // amount; it never establishes eligibility for the lower offer.
+            const preCouponMatch=dialogOpen&&selectedBound&&(panelCondition==='券后'||/^限[1-9]\d*件$/.test(panelCondition||''))&&!!preCouponPrice&&Math.round(Number(preCouponPrice.replace('¥',''))*100)===groupCents&&shownCents!==null&&shownCents<groupCents;
             const firstItemBaseMatch=dialogOpen&&selectedBound&&!!firstItemBasePrice&&Math.round(Number(firstItemBasePrice.replace('¥',''))*100)===groupCents&&shownCents!==null&&shownCents<groupCents;
             const crosschecked=selectedBound&&shownCents!==null&&(groupCents===shownCents||couponMatch||preCouponMatch||firstItemBaseMatch);
             const rowPrice=couponMatch?String(sku.skuPrice/100):sku.groupPrice;

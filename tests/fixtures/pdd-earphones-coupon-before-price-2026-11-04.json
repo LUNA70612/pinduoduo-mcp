@@ -1,0 +1,36 @@
+{
+  "goods_id": "631268201967",
+  "observed_at": "2026-11-04T10:22:26.992Z",
+  "fixture_kind": "whitelisted reconstruction of observed DOM and product-bound SKU state",
+  "html": "<div class=\"tLYIg_Ju enable-select\">【iQOO】 TWS 5i 真无线蓝牙耳机入耳式游戏低延迟通话降噪蓝牙耳机</div><div class=\"uPP2olgd\">券后¥ 76</div><div role=\"dialog\" class=\"HidQ9ROd\"><div class=\"ujEqGzEB\">券后¥76</div><div class=\"Mbx2m60G\">已选：锋芒黄</div><div class=\"fXpFACQG\"><div class=\"mhHA_CEU\">券前¥86</div></div><div class=\"bIhLWVqm\"><div class=\"sku-specs-key\">颜色</div><div role=\"button\" class=\"F7sZG3xe hr353bdX rGqCSAQI fL5gyy_W\" aria-label=\"锋芒黄\">锋芒黄 快要抢光</div><div role=\"button\" class=\"F7sZG3xe rGqCSAQI fL5gyy_W\" aria-label=\"电光白\">电光白 快要抢光</div></div></div><div class=\"Rrut_NDL\"><div class=\"AANc1tSj\"><div role=\"button\" class=\"yK39frdi\">补贴价 券后 ¥ 76 快要抢光 免拼购买</div></div></div>",
+  "goods": {
+    "goodsID": 631268201967,
+    "goodsName": "【iQOO】 TWS 5i 真无线蓝牙耳机入耳式游戏低延迟通话降噪蓝牙耳机"
+  },
+  "state": {
+    "typeHashToSkuID": {
+      "{\"颜色\":\"锋芒黄\"}": 1957346465841,
+      "{\"颜色\":\"电光白\"}": 1958569423040
+    },
+    "currentSelect": {
+      "颜色": "锋芒黄"
+    },
+    "selectedSkuID": 1957346465841,
+    "skuInfos": {
+      "1957346465841": {
+        "goodsId": 631268201967,
+        "skuID": 1957346465841,
+        "skuId": 1957346465841,
+        "groupPrice": "86",
+        "isOnsale": 1
+      },
+      "1958569423040": {
+        "goodsId": 631268201967,
+        "skuID": 1958569423040,
+        "skuId": 1958569423040,
+        "groupPrice": "86",
+        "isOnsale": 1
+      }
+    }
+  }
+}
