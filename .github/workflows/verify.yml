@@ -16,3 +16,17 @@ jobs:
           node-version: '22'
       - name: Check core against fixed historical commit
         run: node http/check-frozen.cjs --verify-git
+      - name: Install original locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Install original adapters
+        run: npm run install:adapters
+      - name: Install optional HTTP locked dependencies
+        run: npm ci --prefix http --ignore-scripts
+      - name: Original regression tests
+        run: npm test
+      - name: Syntax and stdio protocol
+        run: |
+          npm run check
+          npm run smoke
+      - name: Optional HTTP regression and SDK acceptance
+        run: npm run test:http

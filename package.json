@@ -34,7 +34,10 @@
     "smoke": "node scripts/smoke.cjs",
     "live": "node scripts/live-check.cjs",
     "unlock": "node scripts/unlock.cjs",
-    "check:frozen": "node http/check-frozen.cjs"
+    "check:frozen": "node http/check-frozen.cjs",
+    "setup:http": "node http/setup.cjs",
+    "start:http": "node http/server.cjs",
+    "test:http": "node --test --test-concurrency=1 http/tests/*.test.cjs"
   },
   "dependencies": {
     "@jackwener/opencli": "2.0.2"

@@ -1,0 +1,34 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { setupConfig, readConfig } = require('../config.cjs');
+const project = path.resolve(__dirname, '../..');
+test('portable HTTP setup reuses token without changing the existing browser or stdio config', t => {
+  const base = path.join(project, 'work/http-config-tests'); fs.mkdirSync(base, { recursive: true });
+  const root = fs.mkdtempSync(path.join(base, 'space path-')); t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(root, 'runtime'), { recursive: true }); fs.mkdirSync(path.join(root, 'outputs'));
+  fs.writeFileSync(path.join(root, 'runtime/browser-config.json'), '{"endpoint":"http://127.0.0.1:9335"}');
+  fs.writeFileSync(path.join(root, 'outputs/mcp-config.generated.json'), 'stdio-sentinel');
+  const result = setupConfig({ root, env: { PDD_HTTP_PORT: '44176' } });
+  const config = readConfig({ root, env: {} }), token = config.token;
+  assert.equal(config.url, 'http://127.0.0.1:44176/mcp'); assert.equal(token.length, 43);
+  assert.equal(JSON.stringify(result).includes(token), false);
+  assert.equal(JSON.parse(fs.readFileSync(result.connection_file)).headers.Authorization, `Bearer ${token}`);
+  setupConfig({ root, env: {} }); assert.equal(readConfig({ root, env: {} }).token, token);
+  assert.equal(fs.readFileSync(path.join(root, 'runtime/browser-config.json'), 'utf8'), '{"endpoint":"http://127.0.0.1:9335"}');
+  assert.equal(fs.readFileSync(path.join(root, 'outputs/mcp-config.generated.json'), 'utf8'), 'stdio-sentinel');
+  for (const env of [{ PDD_HTTP_PORT: '9335x' }, { PDD_HTTP_PORT: '80' }, { PDD_HTTP_HOST: '0.0.0.0' }]) assert.throws(() => readConfig({ root, env }));
+  fs.writeFileSync(config.files.auth, 'corrupted'); assert.throws(() => setupConfig({ root, env: {} }));
+});
+test('source copying includes HTTP locked dependencies and excludes tokens and nested caches', t => {
+  const base = path.join(project, 'work/http-config-tests'); fs.mkdirSync(base, { recursive: true });
+  const destination = fs.mkdtempSync(path.join(base, 'source-')); t.after(() => fs.rmSync(destination, { recursive: true, force: true }));
+  const files = require('../../scripts/release.cjs').copySource(project, destination);
+  assert.ok(files.some(file => file.path === 'http/package-lock.json'));
+  assert.ok(files.some(file => file.path === 'http/core-baseline.json'));
+  assert.equal(files.some(file => /node_modules|http-auth|connection\.local|http-config\.local/.test(file.path)), false);
+  assert.equal(fs.existsSync(path.join(destination, 'http/node_modules')), false);
+  assert.equal(fs.existsSync(path.join(destination, 'runtime')), false);
+});

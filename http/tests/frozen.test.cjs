@@ -22,12 +22,13 @@ test('fixed baseline matches Git, while CRLF checkout differences are harmless',
   fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace(/\r?\n/g, '\r\n'));
   assert.equal(checkFrozen({ root: directory }).status, 'ok');
 });
-for (const mutation of ['edit', 'delete', 'rename', 'manifest', 'dependency', 'script', 'release']) {
+for (const mutation of ['edit', 'delete', 'rename', 'addition', 'manifest', 'dependency', 'script', 'release']) {
   test(`freeze rejects ${mutation}`, t => {
     const directory = copy(t), file = path.join(directory, 'server.cjs');
     if (mutation === 'edit') fs.appendFileSync(file, '\n// changed\n');
     if (mutation === 'delete') fs.unlinkSync(file);
     if (mutation === 'rename') fs.renameSync(file, `${file}.renamed`);
+    if (mutation === 'addition') fs.writeFileSync(path.join(directory, 'tools/extra-reader.cjs'), '// added core reader');
     if (mutation === 'manifest') fs.appendFileSync(path.join(directory, 'http/core-baseline.json'), ' ');
     if (['dependency', 'script'].includes(mutation)) {
       const packageFile = path.join(directory, 'package.json'), data = JSON.parse(fs.readFileSync(packageFile));

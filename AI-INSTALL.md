@@ -62,6 +62,8 @@ profile必须替换为已有浏览器实际使用的目录，不能为绑定而�
 
 Codex已有实际调用和重启恢复验证。其他客户端需支持本地stdio MCP及可配置的调用超时，实际兼容性需自行确认。服务端不需要模型API Key，客户端本身需提供模型能力。
 
+不支持stdio、但能连接本机MCP URL的客户端，可安装独立HTTP模块：`npm run setup:http`，再运行`npm run start:http`。根据`outputs/mcp-http.connection.local.json`填写URL与Bearer请求头，工具超时建议300秒。此资料含本机令牌，不要上传。原Codex配置不改写，详细要求见[本机HTTP说明](http/README.md)；客户端仅接受云端端点时不能直接连接本机地址。
+
 ## 加载与恢复检查
 
 先调用pdd_status。browser_connected=true只说明CDP可连接；login_status=not_checked表示尚未检查登录，login_policy=manual表示登录由本人完成。兼容字段user_login_required=true不表示当前页面未登录，不应据此打开登录页。当前任务与历史记录分别统计，历史等待记录不能证明当前需要登录或验证。

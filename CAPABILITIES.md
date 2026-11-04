@@ -19,6 +19,8 @@
 
 工具数量仍为10，保留原参数兼容。标准stdio使用JSON-RPC；initialize声明tools.listChanged及prompts。stdout只写协议，错误按协议/业务状态分别返回。
 
+新增可选本机Streamable HTTP入口，默认`127.0.0.1:4176/mcp`及Bearer认证。每会话转接同目录原stdio服务，保留工具、模板、结构化结果与图片，HTTP子进程强制只读。原Codex配置和网页兼容范围不变。支持本机HTTP的客户端仍需实际验证认证、会话和长请求；豆包、WorkBuddy不因新增接口自动视为已验收，详见[HTTP说明](http/README.md)。
+
 pdd_status新增login_status=not_checked和login_policy=manual。browser_connected仅表示CDP连接；兼容字段user_login_required=true表示登录由本人完成，不代表当前未登录。查询不读取页面、不导航、不刷新，只有当前页面确实出现登录墙或验证码时才提示人工登录或验证。
 
 ## 推荐与模型

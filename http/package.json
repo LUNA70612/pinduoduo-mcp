@@ -1,0 +1,10 @@
+{
+  "name": "pinduoduo-mcp-local-http",
+  "version": "0.1.0",
+  "private": true,
+  "description": "拼多多 MCP 可选本机 HTTP 适配层；转接已冻结的 stdio 服务。",
+  "type": "commonjs",
+  "engines": { "node": ">=22" },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "dependencies": { "@modelcontextprotocol/sdk": "1.32.2" }
+}

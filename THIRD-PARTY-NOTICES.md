@@ -13,4 +13,11 @@
 
 `linkedom` 0.18.12 仅用于 DOM fixture 测试，不用于生产采集。本项目的非商业条款不改变 OpenCLI 或其他第三方依赖各自授予的权利。
 
-可选独立协议测试使用 `@modelcontextprotocol/sdk` 1.32.2（来源 https://github.com/modelcontextprotocol/typescript-sdk ），只安装在本地 work/ 下，不属于生产依赖或源码 ZIP 的内含代码。其许可随该依赖自身保留。
+## @modelcontextprotocol/sdk 1.32.2
+
+- 来源：[TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)。
+- 用途：可选本机HTTP模块的标准MCP传输及独立协议验证；原stdio入口不依赖此SDK。
+- HTTP依赖固定在`http/package-lock.json`，仅选择HTTP入口时安装；独立stdio协议验证仍可安装于本机work目录。
+- 许可证：MIT，正文保留于`third-party/MCP-SDK-LICENSE-1.32.2.txt`。源码ZIP不内含下载的SDK或其node_modules。
+
+HTTP的传递依赖版本以独立锁文件为准，各依赖保留自身许可。本项目的非商业条款不改变第三方依赖各自授予的权利。

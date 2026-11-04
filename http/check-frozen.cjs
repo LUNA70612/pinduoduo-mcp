@@ -26,6 +26,15 @@ function checkFrozen({ root = path.resolve(__dirname, '..'), verifyGit = false }
       if (!fs.lstatSync(target).isFile() || fs.lstatSync(target).isSymbolicLink() || digest(fs.readFileSync(target)) !== expected) failures.push(file);
     } catch { failures.push(file); }
   }
+  function checkAdditions(directory) {
+    for (const entry of fs.readdirSync(path.join(root, directory), { withFileTypes: true })) {
+      const relative = `${directory}/${entry.name}`;
+      if (entry.isSymbolicLink()) { failures.push(relative); continue; }
+      if (entry.isDirectory()) checkAdditions(relative);
+      else if (/\.(?:cjs|js|json|ps1)$/.test(entry.name) && protectedFile(relative) && !Object.hasOwn(manifest.files, relative)) failures.push(relative);
+    }
+  }
+  for (const directory of ['tools', 'clis', 'tests', 'scripts']) checkAdditions(directory);
   const current = JSON.parse(fs.readFileSync(path.join(root, 'package.json')));
   const original = manifest.package;
   const { scripts: currentScripts, ...currentMetadata } = current;

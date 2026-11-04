@@ -5,7 +5,7 @@ const { createHash } = require('node:crypto');
 const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 // Explicit allowlist: personal state, account data and local evidence never enter releases.
-const entries = ['server.cjs', 'package.json', 'package-lock.json', '.npmrc', '.editorconfig', '.gitattributes', '.gitignore', 'Install.ps1', 'mcp-config.example.json', 'README.md', 'USAGE.md', 'AI-INSTALL.md', 'CAPABILITIES.md', 'TESTING.md', 'DEV.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'LICENSE', 'LICENSING.md', 'NOTICE', 'THIRD-PARTY-NOTICES.md', 'tools', 'scripts', 'clis', 'tests', 'third-party'];
+const entries = ['server.cjs', 'package.json', 'package-lock.json', '.npmrc', '.editorconfig', '.gitattributes', '.gitignore', 'Install.ps1', 'mcp-config.example.json', 'README.md', 'USAGE.md', 'AI-INSTALL.md', 'CAPABILITIES.md', 'TESTING.md', 'DEV.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'LICENSE', 'LICENSING.md', 'NOTICE', 'THIRD-PARTY-NOTICES.md', 'tools', 'scripts', 'clis', 'tests', 'third-party', 'http', '.github'];
 const localDirectories = new Set(['.git', '.cache', 'node_modules', 'runtime', 'state', 'work', 'outputs', 'logs', 'private', '__pycache__']);
 function localArtifact(relative) {
   const parts = relative.replaceAll('\\', '/').split('/');
