@@ -33,7 +33,8 @@
     "cli": "node scripts/pdd-cli.cjs",
     "smoke": "node scripts/smoke.cjs",
     "live": "node scripts/live-check.cjs",
-    "unlock": "node scripts/unlock.cjs"
+    "unlock": "node scripts/unlock.cjs",
+    "check:frozen": "node http/check-frozen.cjs"
   },
   "dependencies": {
     "@jackwener/opencli": "2.0.2"
