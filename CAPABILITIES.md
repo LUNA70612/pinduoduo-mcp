@@ -1,70 +1,71 @@
-# 能力与兼容范围
+# 工具与能力
 
-版本：0.2.0，Windows只读推荐预览版。面向非商业学习与技术研究，非官方API。
+pinduoduo-mcp 提供 10 个 MCP 工具、3 个推荐模板，以及 stdio 和可选本机 Streamable HTTP 两种接入方式。默认以只读方式运行。
 
-## MCP工具
+## 主要工具
 
-| 工具 | 能力 | 当前范围 |
+| 工具 | 用途 | 主要参数 |
 |---|---|---|
-| pdd_status | CDP、冷却、锁、写闸门、当前/历史任务 | 本地、协议及Codex实际调用通过；不证明当前已登录 |
-| pdd_search | 正常搜索卡片、显示价/标题筛选、排除原因和截断 | 本地筛选已加载卡片；不代表平台已应用筛选或质量排名 |
-| pdd_read_item | 身份、标题、可见价格、属性和可选图片 | 正常搜索卡片入口；include_product_images可返回最多8张已加载主图 |
-| pdd_read_sku | 实际规格组、完整组合、唯一SKU与参考价 | 已支持页面通过；入口、可选状态或价格关联不足时明确受限 |
-| pdd_resume | 检查会话及受保护的只读恢复 | 默认不重放；显式retry须确认任务结束及来源有效 |
-| pdd_login | 打开登录页 | 人工登录；不输入凭证、不导出Cookie |
-| pdd_browse_home | 已加载首页卡片 | 兼容工具，当前预览版未完成验证 |
-| pdd_read_cart | 购物车读取 | 兼容工具，当前预览版未完成验证 |
-| pdd_contact_seller | 客服读取及受闸门保护的发送 | 当前预览版未完成验证；发送关闭 |
-| pdd_add_cart | 受闸门保护的加购 | 写权限关闭，真实写未验收 |
+| `pdd_status` | 查询浏览器连接、冷却、锁、写权限及任务状态 | 无 |
+| `pdd_search` | 搜索商品并筛选当前搜索卡片 | `query`、`limit`、`price_min`、`price_max`、`include_terms`、`exclude_terms`、`exclude_group_purchase` |
+| `pdd_read_item` | 从搜索卡片读取商品详情、属性和可选主图 | `url`、`entry`、`budget_max`、`include_product_images` |
+| `pdd_read_sku` | 核对完整规格组合及对应参考价 | `goods_id`、`spec_selection`、`budget_max` |
+| `pdd_resume` | 检查会话并执行受保护的只读恢复 | `resume_id`、`retry` |
+| `pdd_login` | 打开登录页面，由本人完成登录 | 无 |
 
-工具数量仍为10，保留原参数兼容。标准stdio使用JSON-RPC；initialize声明tools.listChanged及prompts。stdout只写协议，错误按协议/业务状态分别返回。
+`pdd_read_item` 使用 `entry:"search"` 保留同连接搜索来源。`include_product_images:true` 可返回最多 8 张已加载的商品主图。
 
-可选本机Streamable HTTP入口默认使用`127.0.0.1:4176/mcp`及Bearer认证。每会话转接同目录stdio服务，保留工具、模板、结构化结果与图片，HTTP子进程强制只读。支持本机HTTP的客户端需能处理认证、会话和长请求；豆包、WorkBuddy尚未实测，详见[HTTP说明](http/README.md)。
+另保留 `pdd_browse_home`、`pdd_read_cart`、`pdd_contact_seller`、`pdd_add_cart` 四个协议兼容入口及原参数。日常购物比较使用上表工具；加购与客服发送受写权限闸门保护，默认关闭。下单、结算和支付不在服务范围内。
 
-pdd_status返回login_status=not_checked和login_policy=manual。browser_connected仅表示CDP连接；兼容字段user_login_required=true表示登录由本人完成，不代表当前未登录。查询不读取页面、不导航、不刷新，只有当前页面确实出现登录墙或验证码时才提示人工登录或验证。
+具体参数类型、必填项及输出结构以 `tools/list` 返回的 schema 为准。
 
-## 推荐与模型
+## 推荐模板
 
-三个标准模板为pdd_shopping、pdd_cat_food、pdd_earphones，均接受request字符串。客户端AI理解需求、筛选相关性并比较；服务端不接模型API或生成质量总分。
-
-默认最多3组搜索、每组10条、6个不同商品详情、3个商品规格核验。每次只选择一个完整组合，保持90秒串行间隔；无滚动抓全平台或跨调用分页。
-
-模板与initialize指引统一按用途搜索、按已出现品牌/型号定向补搜，再按需补充差异选择；预算通过price_max表达，软偏好不直接转成标题必须包含词。客户端根据工具结果输出比较表，列规格、参考价、条件、来源时间、取舍和未知项，匹配标为“符合、不符、未知”。
-
-未明确要求多人团时，排除页面明确多人团/万人团或至少3人成团的候选；普通拼单保留并注明条件。页面未声明的门槛保持未知。
-
-## 规格及价格口径
-
-只从同连接正常搜索卡片进入商品。来源30分钟有效；缺失/过期时明确要求重新搜索，不直接导航商品裸链接。当前页面若有有效点击凭据可复用，不能仅凭URL或referrer认定来源。
-
-完整默认组合已核验且符合用户指定型号与其他硬条件时可用于比较；未核验的其他组合不能借用默认价。指定spec_selection必须完整匹配实际组名和值，且商品身份、当前选择、唯一SKU及稳定可见价格一致。预加载SKU表不等于已经选中。
-
-仅使用明确可见的安全入口或已识别且只展开规格的商品绑定入口，停在“确定”前。不点击购买、拼单或确认，不修改隐藏控件，不执行组件私有回调。选项禁用或歧义时停止。
-
-| 字段/状态 | 含义 |
+| 模板 | 用途 |
 |---|---|
-| variant_price_verified=true | 该具体组合价格已交叉核对，不等于成交或质量保证 |
-| price_assessment.reference_price | 已核验具体规格的一件商品参考价；未核验为null |
-| item_price_within_budget | 商品价在预算内，其他费用仍未知 |
-| conditional_within_budget | 拼单或附条件优惠商品价在预算内 |
-| over_budget / unknown | 超预算，或规格价/预算依据不足 |
-| total_price_confirmed=false | 未确认完整到手总价；当前读取器不生成确定含运费价格 |
-| unit_price | 只有明确规格净含量、包装数与已核验价格时才计算 |
-| stock=null | 没有精确库存证据；可售与数量分开 |
-| stock=0 / 正整数 | 当前商品绑定的该SKU页面可售数量；不是仓库实物或全平台库存 |
-| available | 保留来源中的在售/可用标记，不证明有库存或UI可选 |
-| selection_available / option_states.selectable | 保留原UI可选状态，false时拒绝点击 |
-| unselectable_reason=page_stock_zero | 控件禁用且页面数量为0；其他禁用原因保留disabled_control |
+| `pdd_shopping` | 通用品类的需求整理与商品比较 |
+| `pdd_cat_food` | 猫粮的适用阶段、主粮声明、规格和单位价比较 |
+| `pdd_earphones` | 耳机的用途、兼容性、续航与佩戴方式比较 |
 
-规格选项的零数量原因附`stock_evidence`：只有该选项在当前页面完整、唯一映射的所有组合均明确为0，才归为`page_stock_zero`。单个套餐为0、其他套餐有量或数量不明时，不推广为整个型号无货；数量不明也不从在售标记、限购数或初始数量推断。
+三个模板均接受必填的 `request` 字符串。客户端也可通过 `initialize.instructions` 和工具说明使用相同流程。
 
-未知运费、优惠资格、限件和拼单条件逐项保留；不猜测价格范围。图片可能展示其他包装或型号，需与当前SKU对应，不把广告、销量或商家声明当独立质量证明。
+客户端理解预算、用途、硬条件和软偏好，MCP 返回页面事实及确定性筛选结果。服务端不接入模型 API，不生成商品质量总分。
 
-## 兼容性与限制
+## 搜索与比较
 
-- 主要验证环境为Windows、Chrome及Codex；其他支持本地stdio MCP的客户端需确认实际兼容性。
-- 缺安全规格入口、选项禁用或商品/规格/价格不一致时明确受限，不保证所有页面模板兼容。
-- 已观察的券前、拼单及“首件＋促销/补贴”价格按条件核验；未确认资格的低价不作为确定参考价，运费保持未知。
-- 图片为可选能力，可能因页面或网络原因返回unavailable；不因此自动重放详情请求。
-- 页面缺少独立性能实测或营养资料时返回未知，页面已有资料读取错误则作为软件缺陷处理。
-- 遇登录、验证码、繁忙、断开或结果无法确认时停止，不绕过平台限制。当前版本仍为预览版。
+- 优先使用商品类型、明确型号及必要限定组成的短核心词，预算通过 `price_max` 传入。
+- `include_terms`、`exclude_terms` 用于标题匹配；颜色、容量、适配性等由详情或规格核对。
+- `exclude_group_purchase:true` 排除页面明确的多人团，普通拼单保留并注明价格条件。
+- 每个推荐流程最多 3 组搜索、每组 10 条候选、6 个不同商品详情及 3 个商品规格核验。
+- 候选结果按用户需求比较，列出具体规格、参考价、来源时间、参数、理由、取舍及未知项。
+
+搜索筛选作用于当前读取的卡片；商品价格按完整规格核验。搜索显示价、标题价格及其他规格价格分别保留各自用途。
+
+## 规格与价格字段
+
+`spec_selection` 使用页面真实组名和值，包含所有必选规格。默认完整组合符合需求时可直接核验；指定其他组合时，通过商品绑定的可见规格控件选择。
+
+| 字段 | 含义 |
+|---|---|
+| `variant_price_verified` | 当前完整组合的规格价核验结果 |
+| `price_assessment.reference_price` | 已核验具体规格的一件商品参考价 |
+| `price_assessment` | 规格价格、预算判断、条件和未知费用 |
+| `unit_price` | 由明确净含量、包装数量及已核验价格计算的单位价 |
+| `stock` | 对应 SKU 的页面可售数量；没有明确数据时为 `null` |
+| `available` | 页面来源中的在售或可用标记 |
+| `selection_available` | 当前规格控件的可选状态 |
+| `unselectable_reason` | 规格控件不可选时返回的原因分类 |
+
+型号匹配与规格核价分别核对。完整选择、商品身份、唯一 SKU 关联及稳定可见价格一致时，才使用该规格参考价。拼单、优惠资格、限件和运费分别保留；最终成交信息以平台结算页面为准。
+
+完整字段口径见 [规格与价格](docs/SKU-MODEL-PRICE.md)。
+
+## 连接与会话
+
+stdio 通过 JSON-RPC 提供工具和模板。可选 HTTP 默认使用 `http://127.0.0.1:4176/mcp`，采用 Bearer 认证，每个会话转接同目录的 stdio 服务，保留结构化结果和图片。
+
+同一搜索的后续读取保持同一连接，搜索来源有效期为 30 分钟。页面操作默认间隔 90 秒，按顺序执行；新连接或来源到期后重新搜索。
+
+`pdd_status` 中的 `browser_connected` 表示 CDP 连接状态；`login_status:"not_checked"` 表示尚未检查页面登录，`login_policy:"manual"` 表示登录由使用者本人完成。兼容字段 `user_login_required:true` 描述登录策略，不是当前登录状态。
+
+运行环境和接入配置见 [安装指南](AI-INSTALL.md)及[HTTP 接入指南](http/README.md)。
