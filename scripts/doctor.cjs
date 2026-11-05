@@ -15,7 +15,7 @@ const { childEnv, connected } = require('../tools/client-core.cjs');
   const entries = fs.readdirSync(source).filter(name => /\.(js|cjs)$/.test(name));
   check('adapters', entries.every(name => fs.existsSync(path.join(installed, name)) && digest(path.join(source, name)) === digest(path.join(installed, name))), `${entries.filter(name => name.endsWith('.js')).length} 入口`);
   const runtime=require('../tools/opencli-runtime.cjs');
-  const help=await runtime.probeProcess(process.execPath,[runtime.entry(),'pdd','--help'],{cwd:ROOT,env:childEnv(),timeout:30000,expected:['search','detail','auth','resume','browse_home','read_cart','read_sku','contact_seller','add_cart']});
+  const help=await runtime.probeProcess(process.execPath,[runtime.entry(),'pdd','--help'],{cwd:ROOT,env:childEnv(),timeout:60000,expected:['search','detail','auth','resume','browse_home','read_cart','read_sku','contact_seller','add_cart']});
   check('adapter_discovery',help.discovered,help);
   const tools = require('../tools/pdd.cjs').tools;
   check('mcp_tools', tools.length === 10 && tools.every(tool => tool.inputSchema && tool.outputSchema && tool.annotations), `${tools.length} 工具`);

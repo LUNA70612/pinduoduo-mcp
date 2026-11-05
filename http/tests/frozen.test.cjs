@@ -26,6 +26,20 @@ for (const file of ['tools/shopping-prompts.cjs', 'tests/sku-model-price.test.cj
   });
 }
 
+for (const file of ['scripts/doctor.cjs', 'tools/opencli-runtime.cjs', 'tests/startup.test.cjs']) {
+  test(`startup exception accepts only its reviewed hash and rejects removal or rename: ${file}`, t => {
+    const directory = copy(t), target = path.join(directory, file), original = fs.readFileSync(target);
+    assert.equal(checkFrozen({ root: directory }).status, 'ok');
+    fs.appendFileSync(target, '\n ');
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+    fs.writeFileSync(target, original);
+    fs.renameSync(target, `${target}.renamed`);
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+    fs.unlinkSync(`${target}.renamed`);
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+  });
+}
+
 test('a patch exception cannot silently remove the reviewed client guidance', t => {
   const directory = copy(t);
   const file = path.join(directory, 'tools/shopping-prompts.cjs');

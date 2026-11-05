@@ -17,6 +17,8 @@ Set-Location 'E:/Codex/pinduoduo-mcp' # 替换为实际源码目录
 
 安装器按锁文件执行npm ci --ignore-scripts，在项目内初始化依赖、缓存和运行目录，安装9个适配器，并运行doctor、语法和协议检查。它生成JSON和Codex TOML两种配置，不自动改写客户端全局配置。
 
+doctor对OpenCLI命令发现只执行一次，最多等待60秒；超时、异常退出或9个入口不齐仍会使安装自检失败。诊断包含等待预算、进程启动与首次stdout耗时、stderr字节数，以及超时发生在stdout之前还是之后，不包含输出正文。此等待预算不改变MCP或网页调用超时，也不保证消除启动耗时波动。
+
 环境禁止执行PowerShell脚本时，使用以下现有入口，无需修改系统执行策略：
 
 ```powershell
