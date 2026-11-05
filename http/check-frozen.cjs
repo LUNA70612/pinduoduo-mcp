@@ -7,6 +7,14 @@ const { execFileSync } = require('node:child_process');
 
 const BASE_COMMIT = '25c3df109270ccf6f02b074f62a6f564f1efe0d5';
 const MANIFEST_SHA256 = 'ddc174e071038a8124c33dd0dc0f8484da9437ddacbd700f1e006d7289e73582';
+// Reviewed SKU model/price guidance patch against 03bbfc4. Keep the original
+// manifest immutable: only these exact artifacts may differ, never a directory.
+const PATCH_COMMIT = '03bbfc45f50e713c9d0b241df69e1bffd2565b62';
+const PATCHES = Object.freeze({
+  'tools/shopping-prompts.cjs': Object.freeze({ before: 'cbb0e3f9dd5e5d4b9b6f74bc1411ddd2a2ba4349bdd59c342191f98c42dcdedb', after: 'd1c871c52f7ba1e604f4a17b14c53c669278580a6bc7e3679cb25e152ca341d8' }),
+  'tests/sku-model-price.test.cjs': Object.freeze({ before: null, after: '4e2106c433d2f3f8b5cdc890ca14ad52cc6a456aec5470d03e3cdb7f92ab370c' }),
+  'tests/fixtures/pdd-cpu-model-synthetic.json': Object.freeze({ before: null, after: '8945d3cf4a9756c210a0962d0ee66937c73bcb1b7cc6688244efb634a1a46f1d' })
+});
 const addedScripts = new Set(['check:frozen', 'setup:http', 'start:http', 'test:http']);
 const canonical = value => Buffer.from(value.toString('utf8').replace(/\r\n/g, '\n'));
 const digest = bytes => crypto.createHash('sha256').update(canonical(bytes)).digest('hex');
@@ -19,8 +27,12 @@ function checkFrozen({ root = path.resolve(__dirname, '..'), verifyGit = false }
   assert.equal(digest(raw), MANIFEST_SHA256, '冻结清单发生变化；不能通过刷新清单放行核心修改。');
   const manifest = JSON.parse(raw);
   assert.equal(manifest.source_commit, BASE_COMMIT, '冻结基线提交不一致。');
+  for (const [file, patch] of Object.entries(PATCHES)) {
+    assert.equal(manifest.files[file] ?? null, patch.before, `例外的修改前哈希与冻结基线不一致：${file}`);
+  }
+  const expectedFiles = { ...manifest.files, ...Object.fromEntries(Object.entries(PATCHES).map(([file, patch]) => [file, patch.after])) };
   const failures = [];
-  for (const [file, expected] of Object.entries(manifest.files)) {
+  for (const [file, expected] of Object.entries(expectedFiles)) {
     try {
       const target = path.join(root, file);
       if (!fs.lstatSync(target).isFile() || fs.lstatSync(target).isSymbolicLink() || digest(fs.readFileSync(target)) !== expected) failures.push(file);
@@ -31,7 +43,7 @@ function checkFrozen({ root = path.resolve(__dirname, '..'), verifyGit = false }
       const relative = `${directory}/${entry.name}`;
       if (entry.isSymbolicLink()) { failures.push(relative); continue; }
       if (entry.isDirectory()) checkAdditions(relative);
-      else if (/\.(?:cjs|js|json|ps1)$/.test(entry.name) && protectedFile(relative) && !Object.hasOwn(manifest.files, relative)) failures.push(relative);
+      else if (/\.(?:cjs|js|json|ps1)$/.test(entry.name) && protectedFile(relative) && !Object.hasOwn(expectedFiles, relative)) failures.push(relative);
     }
   }
   for (const directory of ['tools', 'clis', 'tests', 'scripts']) checkAdditions(directory);
@@ -53,9 +65,14 @@ function checkFrozen({ root = path.resolve(__dirname, '..'), verifyGit = false }
     for (const file of files) assert.equal(manifest.files[file], digest(git(['show', `${BASE_COMMIT}:${file}`])), `冻结哈希不来自固定提交：${file}`);
     assert.deepEqual(manifest.package, JSON.parse(git(['show', `${BASE_COMMIT}:package.json`])));
     assert.equal(manifest.release_source, git(['show', `${BASE_COMMIT}:scripts/release.cjs`]).toString().replace(/\r\n/g, '\n'));
+    const patchFiles = new Set(git(['ls-tree', '-rz', '--name-only', PATCH_COMMIT]).toString().split('\0'));
+    for (const [file, patch] of Object.entries(PATCHES)) {
+      assert.equal(patchFiles.has(file), patch.before !== null, `例外的新增/修改类型与公开基线不一致：${file}`);
+      if (patch.before !== null) assert.equal(digest(git(['show', `${PATCH_COMMIT}:${file}`])), patch.before, `例外的修改前哈希不来自公开基线：${file}`);
+    }
   }
   if (failures.length) throw Error(`已验收核心发生修改、删除或重命名：${failures.join(', ')}`);
-  return { status: 'ok', source_commit: BASE_COMMIT, protected_files: Object.keys(manifest.files).length, line_endings: 'Git LF（仅兼容 CRLF 检出差异）', git_verified: verifyGit };
+  return { status: 'ok', source_commit: BASE_COMMIT, protected_files: Object.keys(expectedFiles).length, reviewed_patch_base: PATCH_COMMIT, reviewed_patch_files: Object.keys(PATCHES), line_endings: 'Git LF（仅兼容 CRLF 检出差异）', git_verified: verifyGit };
 }
 if (require.main === module) {
   try { console.log(JSON.stringify(checkFrozen({ verifyGit: process.argv.includes('--verify-git') }), null, 2)); }

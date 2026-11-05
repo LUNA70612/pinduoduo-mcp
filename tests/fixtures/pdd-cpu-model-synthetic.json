@@ -1,0 +1,12 @@
+{
+  "source": "Synthetic CPU model regression derived from the existing observed SKU DOM structure. Not a live CPU page or reproduction of the reported product.",
+  "goods_id": "123456789",
+  "title": "CPU 5500 5600 5600G 5600GT 多型号",
+  "models": [
+    { "value": "5500", "price": "559" },
+    { "value": "5600", "price": "699" },
+    { "value": "5600G", "price": "799" },
+    { "value": "5600GT", "price": "939" }
+  ],
+  "package": "散片 单CPU"
+}

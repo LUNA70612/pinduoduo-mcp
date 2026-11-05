@@ -7,9 +7,18 @@ test('two official SDK HTTP connections keep all 10 tools, 3 prompts and origina
   const { url, gateway } = await start(t, { real: true, env: { ...process.env, OPENCLI_CDP_ENDPOINT: 'http://127.0.0.1:65534', PDD_ENABLE_WRITES: '1', PDD_WRITE_TEST_MODE: '1' } });
   for (let run = 0; run < 2; run++) {
     const { client, transport } = await connect(t, url);
+    assert.equal(client.getInstructions(), require('../../tools/shopping-prompts.cjs').instructions);
+    assert.match(client.getInstructions(), /默认组合已核价不等于符合目标型号/);
     const tools = await client.listTools(); assert.equal(tools.tools.length, 10);
     assert.ok(tools.tools.every(tool => tool.outputSchema && tool.annotations));
-    assert.equal((await client.listPrompts()).prompts.length, 3);
+    const prompts = (await client.listPrompts()).prompts;
+    assert.equal(prompts.length, 3);
+    for (const prompt of prompts) {
+      const args = { name: prompt.name, arguments: { request: '找便宜的5600GT CPU' } };
+      const actual = await client.getPrompt(args);
+      assert.deepEqual(actual, require('../../tools/shopping-prompts.cjs').getPrompt(args));
+      assert.match(actual.messages[0].content.text, /不能用商品最低价.*目标型号参考价/);
+    }
     assert.equal((await client.getPrompt({ name: 'pdd_earphones', arguments: { request: '200元内，续航优先' } })).messages.length, 2);
     const status = await client.callTool({ name: 'pdd_status', arguments: {} });
     assert.equal(status.structuredContent.browser_connected, false);

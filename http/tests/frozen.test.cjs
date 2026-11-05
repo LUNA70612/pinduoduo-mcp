@@ -9,13 +9,29 @@ function copy(t) {
   const base = path.join(root, 'work', 'http-freeze-tests'); fs.mkdirSync(base, { recursive: true });
   const directory = fs.mkdtempSync(path.join(base, 'case-'));
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'http/core-baseline.json')));
-  for (const file of [...Object.keys(manifest.files), 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
+  for (const file of [...Object.keys(manifest.files), 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
     fs.mkdirSync(path.dirname(path.join(directory, file)), { recursive: true });
     fs.copyFileSync(path.join(root, file), path.join(directory, file));
   }
   t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
   return directory;
 }
+
+for (const file of ['tools/shopping-prompts.cjs', 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json']) {
+  test(`narrow SKU exception accepts only the reviewed hash: ${file}`, t => {
+    const directory = copy(t);
+    assert.equal(checkFrozen({ root: directory }).status, 'ok');
+    fs.appendFileSync(path.join(directory, file), '\n ');
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+  });
+}
+
+test('a patch exception cannot silently remove the reviewed client guidance', t => {
+  const directory = copy(t);
+  const file = path.join(directory, 'tools/shopping-prompts.cjs');
+  fs.unlinkSync(file);
+  assert.throws(() => checkFrozen({ root: directory }));
+});
 test('fixed baseline matches Git, while CRLF checkout differences are harmless', t => {
   const hasGit = fs.existsSync(path.join(root, '.git'));
   assert.equal(checkFrozen({ root, verifyGit: hasGit }).status, 'ok');
