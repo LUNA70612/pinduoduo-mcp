@@ -1,0 +1,232 @@
+{
+  "source": "normal_search_card_readonly_product_bound_sku_inventory",
+  "scope": "Observed inventory and disabled controls only; test HTML and prices are synthetic scaffolding, not live price evidence.",
+  "samples": [
+    {
+      "goods_id": "910878537742",
+      "observed_at": "2026-11-05T08:30:14.166Z",
+      "evidence_sha256": "81e8e9060f87d680813de2647c7f8ee03bc4cf0b96a8bca9364d0c2481b2b4ee",
+      "source_commit": "13555e6f4169e83b353f77f47d2365bb5c6c6905",
+      "reader_sha256": "5cd786c5724ec60624c09fa3820b722d41eda0beb8cd901a76168e59e14bc56f",
+      "groups": [
+        {
+          "label": "型号",
+          "options": [
+            {
+              "value": "R5 5500 全新散片",
+              "selected": true,
+              "disabled": false
+            },
+            {
+              "value": "R5 5600 全新散片",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "value": "R5 PRO 5650GE全新散片（带集显）",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "value": "R5 5600GT 全新散片（带集显）",
+              "selected": false,
+              "disabled": true
+            }
+          ]
+        },
+        {
+          "label": "套餐",
+          "options": [
+            {
+              "value": "单CPU",
+              "selected": true,
+              "disabled": false
+            },
+            {
+              "value": "搭AMD幽灵潜行原装散热器",
+              "selected": false,
+              "disabled": false
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "sku_id": "1863408553050",
+          "specs": {
+            "型号": "R5 5500 全新散片",
+            "套餐": "单CPU"
+          },
+          "quantity": 9,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1863408553051",
+          "specs": {
+            "型号": "R5 5500 全新散片",
+            "套餐": "搭AMD幽灵潜行原装散热器"
+          },
+          "quantity": 4,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1863408553052",
+          "specs": {
+            "型号": "R5 5600 全新散片",
+            "套餐": "单CPU"
+          },
+          "quantity": 7,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1863408553053",
+          "specs": {
+            "型号": "R5 5600 全新散片",
+            "套餐": "搭AMD幽灵潜行原装散热器"
+          },
+          "quantity": 10,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972250162596",
+          "specs": {
+            "型号": "R5 PRO 5650GE全新散片（带集显）",
+            "套餐": "单CPU"
+          },
+          "quantity": 17,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972250162597",
+          "specs": {
+            "型号": "R5 PRO 5650GE全新散片（带集显）",
+            "套餐": "搭AMD幽灵潜行原装散热器"
+          },
+          "quantity": 10,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972250162598",
+          "specs": {
+            "型号": "R5 5600GT 全新散片（带集显）",
+            "套餐": "单CPU"
+          },
+          "quantity": 0,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972250162599",
+          "specs": {
+            "型号": "R5 5600GT 全新散片（带集显）",
+            "套餐": "搭AMD幽灵潜行原装散热器"
+          },
+          "quantity": 0,
+          "isOnsale": 1
+        }
+      ],
+      "selected_sku_id": "1863408553050",
+      "selected": {
+        "型号": "R5 5500 全新散片",
+        "套餐": "单CPU"
+      }
+    },
+    {
+      "goods_id": "937448029054",
+      "observed_at": "2026-11-05T08:34:42.130Z",
+      "evidence_sha256": "5f23c57ad77cee5137a75132c1ef00ea94fe43a99e2c43a3dd65f189672cbab5",
+      "source_commit": "13555e6f4169e83b353f77f47d2365bb5c6c6905",
+      "reader_sha256": "5cd786c5724ec60624c09fa3820b722d41eda0beb8cd901a76168e59e14bc56f",
+      "groups": [
+        {
+          "label": "型号",
+          "options": [
+            {
+              "value": "R5 5600 全新散片",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "value": "R5 5600X 全新散片",
+              "selected": true,
+              "disabled": false
+            },
+            {
+              "value": "R5 5600XT 全新散片",
+              "selected": false,
+              "disabled": true
+            },
+            {
+              "value": "R7 5700X 全新散片",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "value": "R5 PRO 5650GE全新散片（带集显）",
+              "selected": false,
+              "disabled": false
+            },
+            {
+              "value": "R5 5600GT 全新散片（带集显）",
+              "selected": false,
+              "disabled": true
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "sku_id": "1915919715500",
+          "specs": {
+            "型号": "R5 5600 全新散片"
+          },
+          "quantity": 14,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1946840410856",
+          "specs": {
+            "型号": "R5 5600X 全新散片"
+          },
+          "quantity": 20,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1906833870747",
+          "specs": {
+            "型号": "R5 5600XT 全新散片"
+          },
+          "quantity": 0,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1884668840204",
+          "specs": {
+            "型号": "R7 5700X 全新散片"
+          },
+          "quantity": 12,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972248502804",
+          "specs": {
+            "型号": "R5 PRO 5650GE全新散片（带集显）"
+          },
+          "quantity": 20,
+          "isOnsale": 1
+        },
+        {
+          "sku_id": "1972248502805",
+          "specs": {
+            "型号": "R5 5600GT 全新散片（带集显）"
+          },
+          "quantity": 0,
+          "isOnsale": 1
+        }
+      ],
+      "selected_sku_id": "1946840410856",
+      "selected": {
+        "型号": "R5 5600X 全新散片"
+      }
+    }
+  ]
+}

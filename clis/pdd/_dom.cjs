@@ -277,10 +277,28 @@ function inspectPage(document, location, kind, args = {}) {
             const crosschecked=selectedBound&&shownCents!==null&&(groupCents===shownCents||couponMatch||preCouponMatch||firstItemBaseMatch);
             const rowPrice=couponMatch?String(sku.skuPrice/100):sku.groupPrice;
             const selectionBlocked=groups.some(g=>g.option_states.some(o=>o.value===specs[g.label]&&o.selectable===false)&&groups.every(other=>other.label===g.label||selected[other.label]===specs[other.label]));
-            rows.push({sku_id:id,specs,selection_available:selectionBlocked?false:null,price:rowPrice,price_basis:couponMatch?'loaded_sku_coupon_price':preCouponMatch?'loaded_sku_pre_coupon_price':firstItemBaseMatch?'loaded_sku_secondary_price':'loaded_sku_group_price',...(couponMatch?{group_price:sku.groupPrice}:{}),requires_group_purchase:!groupExempt,offer_conditions:offerConditions.length?offerConditions:null,offer_eligibility_verified:false,stock:null,available:sku.isOnsale===1?true:sku.isOnsale===0?false:null,variant_price_verified:crosschecked&&!selectionBlocked,field_evidence:{specs:evidence(specs,'product_bound_sku_state'),price:evidence(rowPrice,crosschecked&&!selectionBlocked?(couponMatch?'selected_sku_coupon_panel_crosscheck':preCouponMatch?'selected_sku_pre_coupon_panel_crosscheck':firstItemBaseMatch?'selected_sku_secondary_panel_crosscheck':'loaded_state_visible_price_crosscheck'):'loaded_state_not_visually_crosschecked',crosschecked&&!selectionBlocked),stock:evidence(null,null,false)}});
+            // Quantity belongs to this exact SKU. Sale flags, purchase limits,
+            // initial quantities and the product total are not stock evidence.
+            let quantity;try{quantity=sku.quantity;}catch{}
+            const stock=Number.isSafeInteger(quantity)&&quantity>=0?quantity:null;
+            rows.push({sku_id:id,specs,selection_available:selectionBlocked?false:null,unselectable_reason:selectionBlocked?(stock===0?'page_stock_zero':'disabled_control'):null,price:rowPrice,price_basis:couponMatch?'loaded_sku_coupon_price':preCouponMatch?'loaded_sku_pre_coupon_price':firstItemBaseMatch?'loaded_sku_secondary_price':'loaded_sku_group_price',...(couponMatch?{group_price:sku.groupPrice}:{}),requires_group_purchase:!groupExempt,offer_conditions:offerConditions.length?offerConditions:null,offer_eligibility_verified:false,stock,available:sku.isOnsale===1?true:sku.isOnsale===0?false:null,variant_price_verified:crosschecked&&!selectionBlocked,field_evidence:{specs:evidence(specs,'product_bound_sku_state'),price:evidence(rowPrice,crosschecked&&!selectionBlocked?(couponMatch?'selected_sku_coupon_panel_crosscheck':preCouponMatch?'selected_sku_pre_coupon_panel_crosscheck':firstItemBaseMatch?'selected_sku_secondary_panel_crosscheck':'loaded_state_visible_price_crosscheck'):'loaded_state_not_visually_crosschecked',crosschecked&&!selectionBlocked),stock:evidence(stock,'product_bound_sku_quantity')}});
           }
           // A selected row must match both the DOM and the component's explicit map.
           if(invalid||!rows.length)return rejected();
+          // Explain a disabled option even when its rows fall outside the
+          // three-row response. Only complete, unique mappings with zero for
+          // every package support this reason; never generalize one package.
+          for(const group of groups)for(const option of group.option_states){
+            option.unselectable_reason=option.selectable===false?'disabled_control':null;
+            if(option.selectable!==false)continue;
+            const related=rows.filter(row=>row.specs[group.label]===option.value);
+            const expected=groups.filter(other=>other!==group).reduce((n,other)=>n*new Set(other.options).size,1);
+            const unique=new Set(related.map(row=>JSON.stringify(groups.map(g=>row.specs[g.label])))).size;
+            if(Number.isSafeInteger(expected)&&expected>0&&related.length===expected&&unique===expected&&related.every(row=>row.stock===0)){
+              option.unselectable_reason='page_stock_zero';
+              option.stock_evidence={...evidence(0,'product_bound_sku_quantity'),quantity:0,scope:'all_mapped_combinations_for_option',combination_count:related.length};
+            }
+          }
           rows.sort((a,b)=>Number(b.variant_price_verified)-Number(a.variant_price_verified));
           const matches=args.spec_selection?rows.filter(r=>same(r.specs,args.spec_selection)):rows;
           const chosen=matches.slice(0,3),verified=chosen.some(r=>r.variant_price_verified);

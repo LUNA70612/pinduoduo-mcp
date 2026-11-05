@@ -7,13 +7,18 @@ const { execFileSync } = require('node:child_process');
 
 const BASE_COMMIT = '25c3df109270ccf6f02b074f62a6f564f1efe0d5';
 const MANIFEST_SHA256 = 'ddc174e071038a8124c33dd0dc0f8484da9437ddacbd700f1e006d7289e73582';
-// Reviewed SKU model/price guidance patch against 03bbfc4. Keep the original
+// Reviewed SKU guidance and page-stock diagnostic patches against 03bbfc4. Keep the original
 // manifest immutable: only these exact artifacts may differ, never a directory.
 const PATCH_COMMIT = '03bbfc45f50e713c9d0b241df69e1bffd2565b62';
 const PATCHES = Object.freeze({
   'tools/shopping-prompts.cjs': Object.freeze({ before: 'cbb0e3f9dd5e5d4b9b6f74bc1411ddd2a2ba4349bdd59c342191f98c42dcdedb', after: 'd1c871c52f7ba1e604f4a17b14c53c669278580a6bc7e3679cb25e152ca341d8' }),
   'tests/sku-model-price.test.cjs': Object.freeze({ before: null, after: '4e2106c433d2f3f8b5cdc890ca14ad52cc6a456aec5470d03e3cdb7f92ab370c' }),
-  'tests/fixtures/pdd-cpu-model-synthetic.json': Object.freeze({ before: null, after: '8945d3cf4a9756c210a0962d0ee66937c73bcb1b7cc6688244efb634a1a46f1d' })
+  'tests/fixtures/pdd-cpu-model-synthetic.json': Object.freeze({ before: null, after: '8945d3cf4a9756c210a0962d0ee66937c73bcb1b7cc6688244efb634a1a46f1d' }),
+  'clis/pdd/_dom.cjs': Object.freeze({ before: '5cd786c5724ec60624c09fa3820b722d41eda0beb8cd901a76168e59e14bc56f', after: '96a7961c86d66ff47bcc3928fb65a21b602313a3c590db260fe4bb6769461563' }),
+  'tools/pdd.cjs': Object.freeze({ before: 'fb1bfef60f0fe28a900f65055edf25fe93e571034cdb0cbad8ebd3edf64ec99d', after: 'dbc892e57519dba472c238f866679f8f6a5d3b745a7a9aec5f86a040d28cdb59' }),
+  'tests/loaded-sku.test.cjs': Object.freeze({ before: '10c75919cba871a955dcfddd66cee6492497e69353e770e8e463e12ec7e83cfc', after: '4d64cf6811624acd5dd8600f69c350a0ac45f03707a3828d52edc3185f55919f' }),
+  'tests/sku-stock.test.cjs': Object.freeze({ before: null, after: 'db7343a3bd5817e6c5ee0f4937b6b50124305a10fba121cac39fc059836bb770' }),
+  'tests/fixtures/pdd-cpu-stock-2026-11-05.json': Object.freeze({ before: null, after: 'e4ccd05b12853e67b5d42e6c8c2eed3d7dbc1d8444733f0179700dd47a8c0ad9' })
 });
 const addedScripts = new Set(['check:frozen', 'setup:http', 'start:http', 'test:http']);
 const canonical = value => Buffer.from(value.toString('utf8').replace(/\r\n/g, '\n'));

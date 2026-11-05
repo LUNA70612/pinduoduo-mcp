@@ -51,6 +51,12 @@ pdd_status新增login_status=not_checked和login_policy=manual。browser_connect
 | total_price_confirmed=false | 未确认完整到手总价；当前读取器不生成确定含运费价格 |
 | unit_price | 只有明确规格净含量、包装数与已核验价格时才计算 |
 | stock=null | 没有精确库存证据；可售与数量分开 |
+| stock=0 / 正整数 | 当前商品绑定的该SKU页面可售数量；不是仓库实物或全平台库存 |
+| available | 保留来源中的在售/可用标记，不证明有库存或UI可选 |
+| selection_available / option_states.selectable | 保留原UI可选状态，false时拒绝点击 |
+| unselectable_reason=page_stock_zero | 控件禁用且页面数量为0；其他禁用原因保留disabled_control |
+
+规格选项的零数量原因附`stock_evidence`：只有该选项在当前页面完整、唯一映射的所有组合均明确为0，才归为`page_stock_zero`。单个套餐为0、其他套餐有量或数量不明时，不推广为整个型号无货；数量不明也不从在售标记、限购数或初始数量推断。
 
 未知运费、优惠资格、限件和拼单条件逐项保留；不猜测价格范围。图片可能展示其他包装或型号，需与当前SKU对应，不把广告、销量或商家声明当独立质量证明。
 

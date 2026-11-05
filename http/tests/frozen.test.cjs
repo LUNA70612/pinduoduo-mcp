@@ -9,7 +9,7 @@ function copy(t) {
   const base = path.join(root, 'work', 'http-freeze-tests'); fs.mkdirSync(base, { recursive: true });
   const directory = fs.mkdtempSync(path.join(base, 'case-'));
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'http/core-baseline.json')));
-  for (const file of [...Object.keys(manifest.files), 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
+  for (const file of [...Object.keys(manifest.files), 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'tests/sku-stock.test.cjs', 'tests/fixtures/pdd-cpu-stock-2026-11-05.json', 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
     fs.mkdirSync(path.dirname(path.join(directory, file)), { recursive: true });
     fs.copyFileSync(path.join(root, file), path.join(directory, file));
   }
@@ -17,7 +17,7 @@ function copy(t) {
   return directory;
 }
 
-for (const file of ['tools/shopping-prompts.cjs', 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json']) {
+for (const file of ['tools/shopping-prompts.cjs', 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'clis/pdd/_dom.cjs', 'tools/pdd.cjs', 'tests/loaded-sku.test.cjs', 'tests/sku-stock.test.cjs', 'tests/fixtures/pdd-cpu-stock-2026-11-05.json']) {
   test(`narrow SKU exception accepts only the reviewed hash: ${file}`, t => {
     const directory = copy(t);
     assert.equal(checkFrozen({ root: directory }).status, 'ok');

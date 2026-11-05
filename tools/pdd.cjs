@@ -82,7 +82,7 @@ chat.inputSchema.properties.shop_id={type:'string',description:'发送前核对�
 chat.inputSchema.properties.message.maxLength=2000;
 chat.description='read 读取已核对店铺的会话；send 默认关闭，需 shop_id、message、confirm、request_id 与验收闸门。';
 toolDefs.find(t=>t.name==='pdd_read_cart').inputSchema.properties.cursor.description='兼容保留字段；非空值明确不支持。';
-toolDefs.find(t=>t.name==='pdd_read_sku').description='读取具有明确规格组合关联的页面价格库存；指定组合需完整组名和值。price_assessment 仅给已核验规格参考价，注明拼单、优惠和运费未知；字段未知不猜测，页面结构不支持时明确返回 unsupported。';
+toolDefs.find(t=>t.name==='pdd_read_sku').description='读取具有明确规格组合关联的页面价格库存；指定组合需完整组名和值。price_assessment 仅给已核验规格参考价，注明拼单、优惠和运费未知。available 保留来源中的在售/可用标记，不证明有库存或可选；stock 仅表示有证据的该SKU页面可售数量，不是仓库或全平台库存。unselectable_reason=page_stock_zero 表示页面数量为0且控件禁用，其他禁用保留 disabled_control；缺乏数量证据仍为未知。规格选项的零库存原因只覆盖 stock_evidence 所指的完整映射组合。字段未知不猜测，页面结构不支持时明确返回 unsupported。';
 toolDefs.find(t=>t.name==='pdd_read_sku').title='读取明确规格和参考价（只读）';
 toolDefs.find(t=>t.name==='pdd_read_item').description+=' 可传 budget_max；详情显示价未绑定具体规格时 price_assessment.reference_price=null，不当作确定到手价。';
 toolDefs.find(t=>t.name==='pdd_read_sku').inputSchema.properties.spec_selection = { type:'object', additionalProperties:{type:'string',minLength:1,maxLength:100}, description:'可选：核验一个完整明确的规格组合。仅独立入口、已打开面板或已识别且商品绑定的底部价格弹窗入口；停在确定前，不购买、不枚举。' };
@@ -112,6 +112,17 @@ const outputSchema = {
     state_diagnostic: { type:'string' },
     entry_diagnostic: { type:'string' },
     selection_status: { enum:['verified','not_selected','incomplete','price_unconfirmed','unknown'] },
+    skus: {type:'array',items:{type:'object',properties:{
+      stock:{type:['integer','null'],minimum:0,description:'仅有明确证据的该SKU页面可售数量；null为未知，不代表商家实物或全平台库存。'},
+      available:{type:['boolean','null'],description:'兼容来源中的在售/可用标记；不证明有库存或控件可选。'},
+      selection_available:{type:['boolean','null'],description:'原UI可选状态；数量证据不会改变此值。'},
+      unselectable_reason:{enum:['page_stock_zero','disabled_control',null]},
+      field_evidence:{type:'object',properties:{stock:{type:'object',properties:{source:{type:['string','null']},observed_at:{type:'string'},verified:{type:'boolean'}},additionalProperties:true}},additionalProperties:true}
+    },additionalProperties:true}},
+    spec_groups:{type:'array',items:{type:'object',properties:{option_states:{type:'array',items:{type:'object',properties:{
+      unselectable_reason:{enum:['page_stock_zero','disabled_control',null]},
+      stock_evidence:{type:'object',properties:{source:{const:'product_bound_sku_quantity'},observed_at:{type:'string'},verified:{const:true},quantity:{const:0},scope:{const:'all_mapped_combinations_for_option'},combination_count:{type:'integer',minimum:1}},required:['source','observed_at','verified','quantity','scope','combination_count'],additionalProperties:false}
+    },additionalProperties:true}}},additionalProperties:true}},
     selection_trace: {type:'array',maxItems:10,items:{type:'object',properties:{label:{type:'string'},value:{type:'string'},option_text:{type:['string','null']},diagnostic:{type:['string','null']},before:{type:'object'},after:{type:'object'}},required:['label','value','before','after','option_text','diagnostic'],additionalProperties:false}},
     safe_entry_status: { enum:['available','missing','ambiguous'] },
     safe_entry_evidence: {type:'object',properties:{observed_at:{type:'string'},visible_region_count:{type:'integer',minimum:0},hidden_region_count:{type:'integer',minimum:0},accepted_count:{type:'integer',minimum:0},candidates:{type:'array',maxItems:12,items:{type:'object',properties:{tag:{type:'string'},text:{type:'string',maxLength:160},within_spec_region:{type:'boolean'},click_bound:{type:'boolean'},reasons:{type:'array',items:{enum:['outside_spec_region','not_spec_entry','click_behavior_unconfirmed','unsafe_control','disabled','duplicate_footer_controls','product_bound_dialog_missing','unrecognized_footer_action','modal_behavior_unconfirmed']}}},required:['tag','text','within_spec_region','click_bound','reasons'],additionalProperties:false}}},required:['observed_at','visible_region_count','hidden_region_count','accepted_count','candidates'],additionalProperties:false},
