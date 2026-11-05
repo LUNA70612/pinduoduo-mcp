@@ -1,6 +1,6 @@
 # 使用指南
 
-本项目用于非商业学习、技术研究与交流。使用时需要支持本地stdio MCP的AI客户端和已登录的项目浏览器。安装见 [AI-INSTALL.md](AI-INSTALL.md)，当前能力见 [CAPABILITIES.md](CAPABILITIES.md)。
+本项目用于非商业学习、技术研究与交流。使用时需要支持本地stdio或[本机HTTP](http/README.md)的AI客户端和已登录的项目浏览器。安装见 [AI-INSTALL.md](AI-INSTALL.md)，当前能力见 [CAPABILITIES.md](CAPABILITIES.md)。
 
 ## 在新对话中试用
 

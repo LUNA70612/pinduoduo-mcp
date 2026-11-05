@@ -19,9 +19,9 @@
 
 工具数量仍为10，保留原参数兼容。标准stdio使用JSON-RPC；initialize声明tools.listChanged及prompts。stdout只写协议，错误按协议/业务状态分别返回。
 
-新增可选本机Streamable HTTP入口，默认`127.0.0.1:4176/mcp`及Bearer认证。每会话转接同目录原stdio服务，保留工具、模板、结构化结果与图片，HTTP子进程强制只读。原Codex配置和网页兼容范围不变。支持本机HTTP的客户端仍需实际验证认证、会话和长请求；豆包、WorkBuddy不因新增接口自动视为已验收，详见[HTTP说明](http/README.md)。
+可选本机Streamable HTTP入口默认使用`127.0.0.1:4176/mcp`及Bearer认证。每会话转接同目录stdio服务，保留工具、模板、结构化结果与图片，HTTP子进程强制只读。支持本机HTTP的客户端需能处理认证、会话和长请求；豆包、WorkBuddy尚未实测，详见[HTTP说明](http/README.md)。
 
-pdd_status新增login_status=not_checked和login_policy=manual。browser_connected仅表示CDP连接；兼容字段user_login_required=true表示登录由本人完成，不代表当前未登录。查询不读取页面、不导航、不刷新，只有当前页面确实出现登录墙或验证码时才提示人工登录或验证。
+pdd_status返回login_status=not_checked和login_policy=manual。browser_connected仅表示CDP连接；兼容字段user_login_required=true表示登录由本人完成，不代表当前未登录。查询不读取页面、不导航、不刷新，只有当前页面确实出现登录墙或验证码时才提示人工登录或验证。
 
 ## 推荐与模型
 
@@ -29,7 +29,7 @@ pdd_status新增login_status=not_checked和login_policy=manual。browser_connect
 
 默认最多3组搜索、每组10条、6个不同商品详情、3个商品规格核验。每次只选择一个完整组合，保持90秒串行间隔；无滚动抓全平台或跨调用分页。
 
-模板与initialize指引统一按用途搜索、按已出现品牌/型号定向补搜，再按需补充差异选择；预算通过price_max表达，软偏好不直接转成标题必须包含词。客户端复用现有工具事实输出比较表，列规格、参考价、条件、来源时间、取舍和未知项，匹配标为“符合、不符、未知”。这是客户端使用策略增强，未增加服务端语义模型或扩大网页读取兼容范围。
+模板与initialize指引统一按用途搜索、按已出现品牌/型号定向补搜，再按需补充差异选择；预算通过price_max表达，软偏好不直接转成标题必须包含词。客户端根据工具结果输出比较表，列规格、参考价、条件、来源时间、取舍和未知项，匹配标为“符合、不符、未知”。
 
 未明确要求多人团时，排除页面明确多人团/万人团或至少3人成团的候选；普通拼单保留并注明条件。页面未声明的门槛保持未知。
 
@@ -37,7 +37,7 @@ pdd_status新增login_status=not_checked和login_policy=manual。browser_connect
 
 只从同连接正常搜索卡片进入商品。来源30分钟有效；缺失/过期时明确要求重新搜索，不直接导航商品裸链接。当前页面若有有效点击凭据可复用，不能仅凭URL或referrer认定来源。
 
-完整默认组合已核验即可用于比较；未核验的其他组合不能借用默认价。指定spec_selection必须完整匹配实际组名和值，且商品身份、当前选择、唯一SKU及稳定可见价格一致。预加载SKU表不等于已经选中。
+完整默认组合已核验且符合用户指定型号与其他硬条件时可用于比较；未核验的其他组合不能借用默认价。指定spec_selection必须完整匹配实际组名和值，且商品身份、当前选择、唯一SKU及稳定可见价格一致。预加载SKU表不等于已经选中。
 
 仅使用明确可见的安全入口或已识别且只展开规格的商品绑定入口，停在“确定”前。不点击购买、拼单或确认，不修改隐藏控件，不执行组件私有回调。选项禁用或歧义时停止。
 
