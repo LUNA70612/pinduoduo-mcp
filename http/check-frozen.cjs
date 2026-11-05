@@ -11,6 +11,8 @@ const MANIFEST_SHA256 = 'ddc174e071038a8124c33dd0dc0f8484da9437ddacbd700f1e006d7
 // manifest immutable: only these exact artifacts may differ, never a directory.
 // Startup exceptions reviewed against c866ba60c250186b97842ee7bbbdc934cfb1f978;
 // their before hashes are unchanged from PATCH_COMMIT and the frozen manifest.
+// Deployment entry exceptions are reviewed against aae894090c4f06c69ea818758a2d49a02c465800;
+// only launcher behavior, installer hints and their regression test may change.
 const PATCH_COMMIT = '03bbfc45f50e713c9d0b241df69e1bffd2565b62';
 const PATCHES = Object.freeze({
   'tools/shopping-prompts.cjs': Object.freeze({ before: 'cbb0e3f9dd5e5d4b9b6f74bc1411ddd2a2ba4349bdd59c342191f98c42dcdedb', after: 'd1c871c52f7ba1e604f4a17b14c53c669278580a6bc7e3679cb25e152ca341d8' }),
@@ -21,6 +23,9 @@ const PATCHES = Object.freeze({
   'tests/loaded-sku.test.cjs': Object.freeze({ before: '10c75919cba871a955dcfddd66cee6492497e69353e770e8e463e12ec7e83cfc', after: '4d64cf6811624acd5dd8600f69c350a0ac45f03707a3828d52edc3185f55919f' }),
   'tests/sku-stock.test.cjs': Object.freeze({ before: null, after: 'db7343a3bd5817e6c5ee0f4937b6b50124305a10fba121cac39fc059836bb770' }),
   'tests/fixtures/pdd-cpu-stock-2026-11-05.json': Object.freeze({ before: null, after: 'e4ccd05b12853e67b5d42e6c8c2eed3d7dbc1d8444733f0179700dd47a8c0ad9' }),
+  'scripts/start-browser.cjs': Object.freeze({ before: '282c7ead0981b17a9544e5e6dc28e495ea19f167176a07525fe98822ee5a6215', after: '921230fb99e183e4526d14392df0ecfba101dda9fa30865ccf4975f729a92572' }),
+  'Install.ps1': Object.freeze({ before: '89e1e8d5ed74663b2b8bba2f733c3d6e769b1f52857a4a9b075c140413d0d28f', after: '70b2ef45895c16c4525ba0d98407285502489da9efd0bc49ad9e47c6de01bba8' }),
+  'tests/browser-launcher.test.cjs': Object.freeze({ before: null, after: '9d3b333db796aad5e481ae2fb725d2b89fc2735dc4848f625272cb7991124128' }),
   'scripts/doctor.cjs': Object.freeze({ before: '87760c6aeacc332cdd3a51b8e6bfff7bc3d11b0dca3e756a889c2d827eb32438', after: 'aa1f74ed980ec58eb754e6e2ef97163f7226b28544c4fdce812b2b7faea7d8e0' }),
   'tools/opencli-runtime.cjs': Object.freeze({ before: 'c5fdee55e412f92317fc7d0b7863fd1038a07bf81e0f5750fa2d3ca9f2d9a59a', after: '299abbde0fb9cb109bd0f60b2da241a758fde24b8ae36ca1d918e46433a2f2f8' }),
   'tests/startup.test.cjs': Object.freeze({ before: '271cc008f68d30fc5a73f94915d6f0da0df513d0b5cd316378ea38c8461a0646', after: 'ab1a53116861652db0230bc5e5828fb2fd3ae0bdcdabae202fd3a38607a3bb9a' })

@@ -35,7 +35,7 @@
 git clone https://github.com/LUNA70612/pinduoduo-mcp.git
 Set-Location '.\pinduoduo-mcp'
 .\Install.ps1
-npm run browser
+npm.cmd run browser
 ```
 
 也可以下载仓库源码 ZIP，解压后在源码目录执行安装命令。安装器按锁文件安装依赖、配置 9 个适配器并生成客户端配置。

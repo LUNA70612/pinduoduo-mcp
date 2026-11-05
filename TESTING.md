@@ -7,21 +7,21 @@
 在源码目录执行：
 
 ```powershell
-npm ci --ignore-scripts
-npm run install:adapters
-npm test
-npm run check
-npm run smoke
-npm run check:frozen
+npm.cmd ci --ignore-scripts
+npm.cmd run install:adapters
+npm.cmd test
+npm.cmd run check
+npm.cmd run smoke
+npm.cmd run check:frozen
 ```
 
 | 命令 | 用途 |
 |---|---|
-| `npm test` | 页面解析、规格与价格、筛选、状态和队列回归 |
-| `npm run check` | JavaScript 语法检查 |
-| `npm run smoke` | stdio 初始化、工具发现、只读闸门与 ping |
-| `npm run check:frozen` | 固定基线、逐文件哈希及依赖保护 |
-| `npm run doctor` | 本机安装、适配器发现及连接检查 |
+| `npm.cmd test` | 页面解析、规格与价格、筛选、状态和队列回归 |
+| `npm.cmd run check` | JavaScript 语法检查 |
+| `npm.cmd run smoke` | stdio 初始化、工具发现、只读闸门与 ping |
+| `npm.cmd run check:frozen` | 固定基线、逐文件哈希及依赖保护 |
+| `npm.cmd run doctor` | 本机安装、适配器发现及连接检查 |
 
 本地回归使用脱敏 fixture 和隔离环境。测试按文件串行执行，具体数量和结果以命令输出为准。
 
@@ -30,7 +30,7 @@ npm run check:frozen
 SDK 安装在独立工作目录，不加入主项目生产依赖：
 
 ```powershell
-npm install --prefix work/mcp-sdk-validation --ignore-scripts --no-package-lock --no-save @modelcontextprotocol/sdk@1.32.2
+npm.cmd install --prefix work/mcp-sdk-validation --ignore-scripts --no-package-lock --no-save @modelcontextprotocol/sdk@1.32.2
 node scripts/sdk-check.cjs --output work/sdk-protocol.json
 ```
 
@@ -39,8 +39,8 @@ node scripts/sdk-check.cjs --output work/sdk-protocol.json
 ## HTTP 检查
 
 ```powershell
-npm run setup:http
-npm run test:http
+npm.cmd run setup:http
+npm.cmd run test:http
 ```
 
 HTTP 检查覆盖官方 SDK 接入、工具与模板、结构化结果和图片转发、认证、会话隔离、超时、连接生命周期及子进程清理。客户端配置步骤见 [HTTP 接入检查](http/VALIDATION.md)。
@@ -58,8 +58,8 @@ node http/check-frozen.cjs --verify-git
 ## 维护者打包
 
 ```powershell
-npm run release:check
-npm run release:source
+npm.cmd run release:check
+npm.cmd run release:source
 ```
 
 发布命令使用维护者本机发布材料，检查通过后生成源码包。普通安装、运行和本地测试不依赖这些材料。

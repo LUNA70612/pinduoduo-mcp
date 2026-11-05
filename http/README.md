@@ -7,8 +7,8 @@
 先按[安装指南](../AI-INSTALL.md)安装主项目并连接自己的浏览器，再在同一源码目录执行：
 
 ```powershell
-npm run setup:http
-npm run start:http
+npm.cmd run setup:http
+npm.cmd run start:http
 ```
 
 默认监听 `http://127.0.0.1:4176/mcp`。保持启动终端运行；停止 HTTP 服务即可关闭该入口，stdio 和浏览器独立运行。
@@ -37,8 +37,8 @@ HTTP 依赖使用独立锁文件，安装在 `http/` 目录。只使用 stdio �
 
 ```powershell
 $env:PDD_HTTP_PORT = '4177'
-npm run setup:http
-npm run start:http
+npm.cmd run setup:http
+npm.cmd run start:http
 ```
 
 端口范围为 1024～65535。配置使用明确指定的端口，重复 setup 保留已有令牌。项目配置均保存在本机，不改写客户端全局设置。
@@ -56,8 +56,8 @@ HTTP 和 stdio 共用同一安装目录的浏览器锁及默认 90 秒间隔。�
 ## 开发检查
 
 ```powershell
-npm run check:frozen
-npm run test:http
+npm.cmd run check:frozen
+npm.cmd run test:http
 ```
 
 核心保护核对固定基线及经过审阅的逐文件变更；HTTP 测试使用官方 SDK 检查协议、转发和会话管理。客户端设置检查步骤见 [HTTP 接入检查](VALIDATION.md)，开发命令见[测试指南](../TESTING.md)。

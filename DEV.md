@@ -54,7 +54,7 @@ HTTP 按会话保留原 stdio 子进程和搜索来源，共用同一安装目�
 ## 核心保护与依赖
 
 ```powershell
-npm run check:frozen
+npm.cmd run check:frozen
 ```
 
 固定基线及逐文件 SHA-256 清单保护核心文件、测试、安装逻辑和依赖。必要变更经审阅后使用精确文件例外登记，CI 同时核对 Git 来源。

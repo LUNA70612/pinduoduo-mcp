@@ -23,8 +23,8 @@
 ## 开发检查
 
 ```powershell
-npm run check:frozen
-npm run test:http
+npm.cmd run check:frozen
+npm.cmd run test:http
 ```
 
 HTTP 模块通过官方 SDK 检查初始化、工具与模板、图片和结构化结果转发、认证及会话生命周期。测试使用本地 fixture 和隔离环境，执行命令见[测试指南](../TESTING.md)。

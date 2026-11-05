@@ -24,7 +24,7 @@
 ## 核心保护
 
 ```powershell
-npm run check:frozen
+npm.cmd run check:frozen
 ```
 
 核心文件以固定基线及逐文件哈希保护。修改受保护文件时，提供针对性回归，并对必要的文件变更登记经过审阅的精确哈希例外。保留原冻结清单，HTTP 实现及其测试在独立目录维护。

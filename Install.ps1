@@ -22,7 +22,7 @@ Invoke-ProjectNpm -NpmArgs @('run', 'check')
 Invoke-ProjectNpm -NpmArgs @('run', 'smoke')
 Write-Host ''
 Write-Host '安装完成。下一步：'
-Write-Host '1. npm run browser'
+Write-Host '1. npm.cmd run browser'
 Write-Host '2. 在隔离浏览器中人工扫码登录拼多多'
 Write-Host '3. 将 outputs/mcp-config.generated.json 的 pinduoduo 配置复制到 MCP 客户端'
-Write-Host '4. npm run bind-browser（浏览器启动后检查连接）'
+Write-Host '4. npm.cmd run bind-browser（浏览器启动后检查连接）'

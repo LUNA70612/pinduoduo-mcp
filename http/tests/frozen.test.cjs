@@ -9,7 +9,7 @@ function copy(t) {
   const base = path.join(root, 'work', 'http-freeze-tests'); fs.mkdirSync(base, { recursive: true });
   const directory = fs.mkdtempSync(path.join(base, 'case-'));
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'http/core-baseline.json')));
-  for (const file of [...Object.keys(manifest.files), 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'tests/sku-stock.test.cjs', 'tests/fixtures/pdd-cpu-stock-2026-11-05.json', 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
+  for (const file of [...Object.keys(manifest.files), 'tests/sku-model-price.test.cjs', 'tests/fixtures/pdd-cpu-model-synthetic.json', 'tests/sku-stock.test.cjs', 'tests/fixtures/pdd-cpu-stock-2026-11-05.json', 'tests/browser-launcher.test.cjs', 'package.json', 'scripts/release.cjs', 'http/core-baseline.json']) {
     fs.mkdirSync(path.dirname(path.join(directory, file)), { recursive: true });
     fs.copyFileSync(path.join(root, file), path.join(directory, file));
   }
@@ -28,6 +28,20 @@ for (const file of ['tools/shopping-prompts.cjs', 'tests/sku-model-price.test.cj
 
 for (const file of ['scripts/doctor.cjs', 'tools/opencli-runtime.cjs', 'tests/startup.test.cjs']) {
   test(`startup exception accepts only its reviewed hash and rejects removal or rename: ${file}`, t => {
+    const directory = copy(t), target = path.join(directory, file), original = fs.readFileSync(target);
+    assert.equal(checkFrozen({ root: directory }).status, 'ok');
+    fs.appendFileSync(target, '\n ');
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+    fs.writeFileSync(target, original);
+    fs.renameSync(target, `${target}.renamed`);
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+    fs.unlinkSync(`${target}.renamed`);
+    assert.throws(() => checkFrozen({ root: directory }), /发生修改/);
+  });
+}
+
+for (const file of ['scripts/start-browser.cjs', 'Install.ps1', 'tests/browser-launcher.test.cjs']) {
+  test(`deployment entry exception rejects edits, deletion and rename: ${file}`, t => {
     const directory = copy(t), target = path.join(directory, file), original = fs.readFileSync(target);
     assert.equal(checkFrozen({ root: directory }).status, 'ok');
     fs.appendFileSync(target, '\n ');

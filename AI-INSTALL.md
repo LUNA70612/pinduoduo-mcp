@@ -16,15 +16,17 @@ Set-Location '.\pinduoduo-mcp'
 
 安装器按锁文件安装依赖、初始化项目内运行目录、安装 9 个 OpenCLI 适配器，并执行安装自检、语法及协议检查。OpenCLI 固定为 2.0.2，stdio 使用者无需安装 HTTP 依赖。
 
+取得源码需要能够访问 GitHub；安装依赖另外需要能够访问 npm registry（默认 `registry.npmjs.org`）。两者分别检查，项目不会自动修改系统代理。
+
 安装自检对 OpenCLI 命令发现单次最多等待 60 秒，检查全部 9 个入口。此预算独立于客户端初始化和工具调用超时。
 
 PowerShell 脚本受限时，可使用以下入口，无需修改系统执行策略：
 
 ```powershell
-npm run setup
-npm run doctor
-npm run check
-npm run smoke
+npm.cmd run setup
+npm.cmd run doctor
+npm.cmd run check
+npm.cmd run smoke
 ```
 
 ## 启动浏览器
@@ -32,20 +34,29 @@ npm run smoke
 首次使用执行：
 
 ```powershell
-npm run browser
+npm.cmd run browser
 ```
 
 在打开的项目浏览器中人工登录。浏览器使用项目隔离配置，CDP 默认端口为 9222，可按本机需要配置。
+
+启动命令单次等待 CDP 就绪最多 30 秒；提示就绪仅表示调试连接可用，登录仍由使用者本人完成。端口已有监听时不会再启动浏览器，也不会自动换端口；已有项目浏览器请按下方步骤绑定。等待失败时不会自动重启或关闭浏览器。
+
+浏览器按显式配置、系统安装目录、用户安装目录的顺序查找。需要指定程序时，在启动前设置：
+
+```powershell
+$env:PDD_BROWSER_PATH = 'C:/path/to/Chrome/Application/chrome.exe'
+npm.cmd run browser
+```
 
 已有项目浏览器和登录会话时，直接复用原窗口、CDP 端口及 profile。配置优先读取显式环境变量和 `runtime/browser-config.json`。需要绑定已有浏览器时，将以下示例替换为本机实际值：
 
 ```powershell
 $env:OPENCLI_CDP_ENDPOINT = 'http://127.0.0.1:9335'
 $env:PDD_BROWSER_PROFILE = 'C:/projects/pinduoduo-mcp/runtime/browser-profile'
-npm run bind-browser
+npm.cmd run bind-browser
 ```
 
-profile 填写已有浏览器实际使用的目录。`bind-browser` 检查本机 CDP 并生成连接配置；只重新生成项目配置和安装适配器时，可使用 `npm run setup -- --skip-install`。
+profile 填写已有浏览器实际使用的目录。`bind-browser` 检查本机 CDP 并生成连接配置；只重新生成项目配置和安装适配器时，可使用 `npm.cmd run setup -- --skip-install`。
 
 ## 配置 stdio 客户端
 
@@ -67,8 +78,8 @@ profile 填写已有浏览器实际使用的目录。`bind-browser` 检查本机
 需要通过本机 URL 连接的客户端，在同一安装目录执行：
 
 ```powershell
-npm run setup:http
-npm run start:http
+npm.cmd run setup:http
+npm.cmd run start:http
 ```
 
 从 `outputs/mcp-http.connection.local.json` 读取 URL、Bearer 请求头及超时设置，按客户端界面填写。HTTP 默认地址为 `http://127.0.0.1:4176/mcp`，建议每次调用至少预留 300 秒。
